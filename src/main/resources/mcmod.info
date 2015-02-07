@@ -1,0 +1,12 @@
+[
+{
+  "modid": "AetherCraft2",
+  "name": "AetherCraft 2",
+  "description": "Manipulate the Aethers for fun and profit!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "authorList": ["iconmaster"],
+  "logoFile": "",
+}
+]
