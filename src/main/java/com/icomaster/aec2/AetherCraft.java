@@ -8,7 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 public class AetherCraft {
 
 	public static final String MODID = "AetherCraft2";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "@VERSION@";
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
