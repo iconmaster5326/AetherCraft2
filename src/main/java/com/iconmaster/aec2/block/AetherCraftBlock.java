@@ -47,7 +47,7 @@ public class AetherCraftBlock extends Block {
 
 	@Override
 	public String getUnlocalizedName() {
-		return "aec.tile." + name;
+		return "tile.aec2." + name;
 	}
 
 	@Override

@@ -31,6 +31,8 @@ public class AetherCraftItem extends Item {
 		this.name = name;
 		this.textures = textures;
 		this.setHasSubtypes(false);
+		
+		this.setUnlocalizedName(getUnlocalizedName());
 	}
 	
 	public void register() {
@@ -40,7 +42,7 @@ public class AetherCraftItem extends Item {
 
 	@Override
 	public String getUnlocalizedName() {
-		return "aec.item."+name;
+		return "aec2."+name;
 	}
 
 	@SideOnly(Side.CLIENT)
