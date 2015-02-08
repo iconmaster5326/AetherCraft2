@@ -16,6 +16,7 @@ import com.iconmaster.aec2.gui.ContainerSpectrometer;
 import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
 import com.iconmaster.aec2.item.ItemCompound;
+import com.iconmaster.aec2.network.AetherCraftPacketHandler;
 import com.iconmaster.aec2.te.TECrucible;
 import com.iconmaster.aec2.te.TEData;
 import com.iconmaster.aec2.te.TESpectrometer;
@@ -88,6 +89,7 @@ public class AetherCraft {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new AetherCraftGuiHandler());
+		AetherCraftPacketHandler.init();
 		
 		register(new AetherCraftTEBlock("still", new BlockTextures("aec2:still"), TEStill.class));
 		register(new TEData("aec2.still", TEStill.class, ContainerStill.class, GuiStill.class));
