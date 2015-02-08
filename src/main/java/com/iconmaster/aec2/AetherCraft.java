@@ -1,13 +1,13 @@
 package com.iconmaster.aec2;
 
-import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
 import com.iconmaster.aec2.client.gui.AetherCraftGui;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
+import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
 import com.iconmaster.aec2.item.AetherCraftItem;
-import com.iconmaster.aec2.item.ItemTextures;
+import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEData;
 import cpw.mods.fml.common.Mod;
@@ -16,8 +16,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import java.util.HashMap;
+import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -35,7 +35,7 @@ public class AetherCraft {
 
 	public static CreativeTabs tabAetherCraft = new CreativeTabs("aetherCraft") {
 		public ItemStack getIconItemStack() {
-			return new ItemStack(Blocks.dirt, 1, 0);
+			return new ItemStack(items.get("compound"), 1, 0);
 		}
 
 		@Override
@@ -48,6 +48,8 @@ public class AetherCraft {
 	public static HashMap<String, AetherCraftTEBlock> teBlocks = new HashMap<String, AetherCraftTEBlock>();
 	public static HashMap<String, AetherCraftItem> items = new HashMap<String, AetherCraftItem>();
 	public static HashMap<String, TEData> tes = new HashMap<String, TEData>();
+	
+	public static Random aetherRandom = new Random(5326);
 
 	public static void register(AetherCraftBlock thing) {
 		blocks.put(thing.name, thing);
@@ -76,6 +78,6 @@ public class AetherCraft {
 		register(new AetherCraftTEBlock("testBlock", new BlockTextures("aec2:test"), AetherCraftTE.class));
 		register(new TEData("aec.te", AetherCraftTE.class, AetherCraftContainer.class, AetherCraftGui.class));
 
-		register(new AetherCraftItem("testItem", new ItemTextures("aec2:itemTest")));
+		register(new ItemCompound());
 	}
 }

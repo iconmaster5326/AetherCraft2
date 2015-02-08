@@ -1,2 +1,3 @@
 tile.aec2.testBlock.name=Test Block
-item.aec2.testItem.name=Test Item
+
+itemGroup.aetherCraft=AetherCraft
