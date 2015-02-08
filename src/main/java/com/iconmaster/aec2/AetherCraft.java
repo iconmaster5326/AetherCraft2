@@ -7,13 +7,16 @@ import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
+import com.iconmaster.aec2.client.gui.GuiCrucible;
 import com.iconmaster.aec2.client.gui.GuiSpectrometer;
 import com.iconmaster.aec2.client.gui.GuiStill;
 import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
+import com.iconmaster.aec2.gui.ContainerCrucible;
 import com.iconmaster.aec2.gui.ContainerSpectrometer;
 import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
 import com.iconmaster.aec2.item.ItemCompound;
+import com.iconmaster.aec2.te.TECrucible;
 import com.iconmaster.aec2.te.TEData;
 import com.iconmaster.aec2.te.TESpectrometer;
 import com.iconmaster.aec2.te.TEStill;
@@ -91,6 +94,9 @@ public class AetherCraft {
 		
 		register(new AetherCraftTEBlock("spectrometer", new BlockTextures("aec2:spectrometer"), TESpectrometer.class));
 		register(new TEData("aec2.spectrometer", TESpectrometer.class, ContainerSpectrometer.class, GuiSpectrometer.class));
+
+		register(new AetherCraftTEBlock("crucible", new BlockTextures("aec2:crucible"), TECrucible.class));
+		register(new TEData("aec2.crucible", TECrucible.class, ContainerCrucible.class, GuiCrucible.class));
 
 		compound = new ItemCompound();
 		register(compound);
