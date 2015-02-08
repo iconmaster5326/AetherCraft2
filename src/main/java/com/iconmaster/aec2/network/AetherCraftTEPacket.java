@@ -1,9 +1,11 @@
 package com.iconmaster.aec2.network;
 
 import com.iconmaster.aec2.te.AetherCraftTE;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 
@@ -40,7 +42,12 @@ public abstract class AetherCraftTEPacket<T extends AetherCraftTE> implements IM
 
 	@Override
 	public IMessage onMessage(AetherCraftTEPacket message, MessageContext ctx) {
-		te = (T) Minecraft.getMinecraft().theWorld.getTileEntity(message.x, message.y, message.z);
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			te = (T) Minecraft.getMinecraft().theWorld.getTileEntity(message.x, message.y, message.z);
+		} else {
+			te = (T) ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
+		}
+		
 		if (te == null) {
 			System.out.println("[AEC2] ERROR: TE not found!");
 		}

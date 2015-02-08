@@ -3,10 +3,12 @@ package com.iconmaster.aec2.client.gui;
 import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
+import com.iconmaster.aec2.network.OpenHatchPacket;
 import com.iconmaster.aec2.network.RequestHeatSyncPacket;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TECrucible;
 import java.util.Random;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -25,6 +27,13 @@ public class GuiCrucible extends AetherCraftGui<TECrucible> {
 		AetherCraftPacketHandler.HANDLER.sendToServer(new RequestHeatSyncPacket(te.xCoord, te.yCoord, te.zCoord));
 	}
 
+	@Override
+	public void initGui() {
+		super.initGui();
+		
+		buttonList.add(new GuiButton(0, guiLeft+110, guiTop+57, 60, 20, "Open Hatch"));
+	}
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
@@ -50,5 +59,10 @@ public class GuiCrucible extends AetherCraftGui<TECrucible> {
 		
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		drawTexturedModalRect(x+68, y+15, 218, 0, 105-68, 70-15);
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton b) {
+		AetherCraftPacketHandler.HANDLER.sendToServer(new OpenHatchPacket(te.xCoord, te.yCoord, te.zCoord));
 	}
 }

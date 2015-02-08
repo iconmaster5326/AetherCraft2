@@ -1,7 +1,7 @@
 package com.iconmaster.aec2.te;
 
+import com.iconmaster.aec2.AetherCraft;
 import com.iconmaster.aec2.aether.Compound;
-import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.aether.Reactor;
 import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
@@ -10,6 +10,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  *
@@ -35,27 +37,57 @@ public class TECrucible extends AetherCraftTE {
 
 	@Override
 	public void update() {
-		if (inventory[0]!=null) {
-			if (inventory[0].getItem() instanceof ItemCompound) {
-				Compound c = Compound.readFromNBT(inventory[0].getTagCompound());
-				if (c!=null) {
-					reactor.addReactant(c);
-					decrStackSize(0, 1);
-				}
-			} else {
-				Compound[] cpds = ItemConversionRegistry.getComposition(inventory[0]);
-				if (cpds!=null) {
-					for (Compound c : cpds) {
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+			if (inventory[0]!=null) {
+				if (inventory[0].getItem() instanceof ItemCompound) {
+					Compound c = Compound.readFromNBT(inventory[0].getTagCompound());
+					if (c!=null) {
 						reactor.addReactant(c);
+						decrStackSize(0, 1);
+						
+						System.out.println("ADD");
+						System.out.println(xCoord+" "+yCoord+" "+zCoord);
+						System.out.println(FMLCommonHandler.instance().getEffectiveSide());
+						System.out.println(reactor.reactants);
 					}
-					decrStackSize(0, 1);
 				}
 			}
+			int oldH = reactor.heat;
+			reactor.step();
+
+			if (oldH!=reactor.heat) {
+				AetherCraftPacketHandler.HANDLER.sendToAllAround(new HeatSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor.heat), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
+			}
+		} else {
+			reactor.step();
 		}
-		int oldH = reactor.heat;
-		reactor.step();
+	}
+	
+	public void openHatch() {
+		System.out.println("REMOVE");
+		System.out.println(xCoord+" "+yCoord+" "+zCoord);
+		System.out.println(FMLCommonHandler.instance().getEffectiveSide());
+		System.out.println(reactor.reactants);
 		
-		if (oldH!=reactor.heat && FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-			AetherCraftPacketHandler.HANDLER.sendToAllAround(new HeatSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor.heat), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
+		if (reactor.reactants.isEmpty()) {
+			return;
+		}
+
+		Compound c = reactor.reactants.get(0);
+		ItemStack item = new ItemStack(AetherCraft.compound);
+		item.stackTagCompound =  new NBTTagCompound();
+		c.writeToNBT(item.stackTagCompound);
+
+		if (inventory[1]!=null && !areStackable(item, inventory[1])) {
+			return;
+		}
+
+		reactor.reactants.remove(0);
+
+		if (inventory[1]==null) {
+			inventory[1] = item;
+		} else {
+			inventory[1].stackSize += 1;
+		}
 	}
 }
