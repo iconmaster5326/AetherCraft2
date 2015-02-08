@@ -1,6 +1,6 @@
-package com.icomaster.aec2.client;
+package com.iconmaster.aec2.client;
 
-import com.icomaster.aec2.CommonProxy;
+import com.iconmaster.aec2.CommonProxy;
 
 /**
  *

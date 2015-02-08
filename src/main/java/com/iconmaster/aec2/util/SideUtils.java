@@ -1,4 +1,4 @@
-package com.icomaster.aec2.util;
+package com.iconmaster.aec2.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

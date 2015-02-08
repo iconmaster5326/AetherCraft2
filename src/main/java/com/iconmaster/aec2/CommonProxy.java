@@ -1,4 +1,4 @@
-package com.icomaster.aec2;
+package com.iconmaster.aec2;
 
 /**
  *

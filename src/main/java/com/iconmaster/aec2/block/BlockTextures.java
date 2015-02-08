@@ -1,7 +1,7 @@
-package com.icomaster.aec2.block;
+package com.iconmaster.aec2.block;
 
-import static com.icomaster.aec2.util.SideUtils.BOTTOM;
-import static com.icomaster.aec2.util.SideUtils.TOP;
+import static com.iconmaster.aec2.util.SideUtils.BOTTOM;
+import static com.iconmaster.aec2.util.SideUtils.TOP;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 

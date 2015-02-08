@@ -1,4 +1,4 @@
-package com.icomaster.aec2.item;
+package com.iconmaster.aec2.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;

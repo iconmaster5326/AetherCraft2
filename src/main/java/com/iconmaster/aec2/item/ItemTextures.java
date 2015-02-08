@@ -1,4 +1,4 @@
-package com.icomaster.aec2.item;
+package com.iconmaster.aec2.item;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;

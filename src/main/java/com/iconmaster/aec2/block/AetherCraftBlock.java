@@ -1,4 +1,4 @@
-package com.icomaster.aec2.block;
+package com.iconmaster.aec2.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;

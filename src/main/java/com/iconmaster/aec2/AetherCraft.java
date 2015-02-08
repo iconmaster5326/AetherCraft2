@@ -1,5 +1,7 @@
-package com.icomaster.aec2;
+package com.iconmaster.aec2;
 
+import com.iconmaster.aec2.block.AetherCraftBlock;
+import com.iconmaster.aec2.block.BlockTextures;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -12,9 +14,11 @@ public class AetherCraft {
 
 	public static final String MODID = "AetherCraft2";
 	public static final String VERSION = "@VERSION@";
-
+	
+	static AetherCraftBlock testBlock = new AetherCraftBlock("testBlock", new BlockTextures("aec2:test"));
+	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
+		testBlock.register();
 	}
 }
