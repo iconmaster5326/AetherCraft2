@@ -7,7 +7,7 @@ import com.iconmaster.aec2.AetherCraft;
  * @author iconmaster
  */
 public enum Aether {
-	MYARTIS,SOLGEM,HAETRONOUS,ALUOSA,TEGORIS;
+	MYARTIS,SOLGEM,HAETRONOUS,ALUOSA,TEGORIS,GEOTOGOUS,DRAYROSA,TERREM;
 	
 	public String name;
 	
