@@ -1,6 +1,8 @@
 package com.iconmaster.aec2.te;
 
+import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.util.SideUtils;
+import java.util.Arrays;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,7 @@ public abstract class AetherCraftTE extends TileEntity implements ISidedInventor
 	public ItemStack[] inventory;
 	public int invSize = 0;
 	public String name = "aec.te";
+	public int tick = 0;
 
 	public AetherCraftTE() {
 		setup();
@@ -147,7 +150,10 @@ public abstract class AetherCraftTE extends TileEntity implements ISidedInventor
 	
 	@Override
 	public void updateEntity() {
-		//core update code here
+		tick++;
+		if (tick%4==0) {
+			update();
+		}
 	}
 
 	@Override
@@ -168,4 +174,73 @@ public abstract class AetherCraftTE extends TileEntity implements ISidedInventor
 	public int getMetadata() {
 		return this.worldObj.getBlockMetadata(this.xCoord,this.yCoord,this.zCoord);
 	}
+	
+	public int getFilledSlot(int begin, int end) {
+		for (int i=begin;i<end;i++) {
+			if (inventory[i]!=null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int getFilledSlot() {
+		return getFilledSlot(0,invSize);
+	}
+	
+	public int getEmptySlot(int begin, int end) {
+		for (int i=begin;i<end;i++) {
+			if (inventory[i]==null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int getEmptySlot() {
+		return getFilledSlot(0,invSize);
+	}
+	
+	public int getStackableSlot(ItemStack item, int begin, int end) {
+		for (int i=begin;i<end;i++) {
+			if (inventory[i]==null || areStackable(item, inventory[i])) {
+				return i;
+			}
+		}
+		return getEmptySlot(begin, end);
+	}
+	
+	public int getStackableSlot(ItemStack item) {
+		return getStackableSlot(item, 0, invSize);
+	}
+	
+	public static boolean areStackable(ItemStack stack1, ItemStack stack2) {
+		if (!stack1.isItemEqual(stack2)) {
+			return false;
+		}
+		
+		if (!stack1.isStackable()) {
+			return false;
+		}
+		
+		if ((stack1.stackSize+stack2.stackSize)>stack1.getMaxStackSize()) {
+			return false;
+		}
+		
+		if (stack1.getItem() instanceof ItemCompound) {
+			if (stack1.getTagCompound()==null || stack2.getTagCompound()==null) {
+				return false;
+			}
+			byte[] b1 = stack1.getTagCompound().getByteArray("cpd");
+			byte[] b2 = stack2.getTagCompound().getByteArray("cpd");
+			
+			if (!Arrays.equals(b1, b2)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public abstract void update();
 }

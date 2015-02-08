@@ -1,5 +1,9 @@
 package com.iconmaster.aec2;
 
+import com.iconmaster.aec2.aether.Aether;
+import com.iconmaster.aec2.aether.Compound;
+import com.iconmaster.aec2.aether.Compound.Ratio;
+import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
@@ -18,6 +22,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -35,7 +40,7 @@ public class AetherCraft {
 
 	public static CreativeTabs tabAetherCraft = new CreativeTabs("aetherCraft") {
 		public ItemStack getIconItemStack() {
-			return new ItemStack(items.get("compound"), 1, 0);
+			return new ItemStack(compound, 1, 0);
 		}
 
 		@Override
@@ -48,6 +53,9 @@ public class AetherCraft {
 	public static HashMap<String, AetherCraftTEBlock> teBlocks = new HashMap<String, AetherCraftTEBlock>();
 	public static HashMap<String, AetherCraftItem> items = new HashMap<String, AetherCraftItem>();
 	public static HashMap<String, TEData> tes = new HashMap<String, TEData>();
+	
+	//important items get thier own static members
+	public static ItemCompound compound;
 	
 	public static Random aetherRandom = new Random(5326);
 
@@ -78,6 +86,9 @@ public class AetherCraft {
 		register(new AetherCraftTEBlock("still", new BlockTextures("aec2:still"), TEStill.class));
 		register(new TEData("aec2.still", TEStill.class, ContainerStill.class, GuiStill.class));
 
-		register(new ItemCompound());
+		compound = new ItemCompound();
+		register(compound);
+		
+		ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)));
 	}
 }
