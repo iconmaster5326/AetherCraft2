@@ -75,7 +75,7 @@ public class AetherCraft {
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new AetherCraftGuiHandler());
 		
-		register(new AetherCraftTEBlock("testBlock", new BlockTextures("aec2:test"), AetherCraftTE.class));
+		register(new AetherCraftTEBlock("testBlock", new BlockTextures("aec2:still"), AetherCraftTE.class));
 		register(new TEData("aec.te", AetherCraftTE.class, AetherCraftContainer.class, AetherCraftGui.class));
 
 		register(new ItemCompound());
