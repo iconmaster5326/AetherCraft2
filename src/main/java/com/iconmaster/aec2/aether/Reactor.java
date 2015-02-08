@@ -1,8 +1,11 @@
 package com.iconmaster.aec2.aether;
 
+import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 /**
  *
@@ -106,5 +109,52 @@ public class Reactor {
 		if (recurse) {
 			doDecay();
 		}
+	}
+	
+	public static Reactor readFromNBT(NBTTagCompound tag) {
+		System.out.println(tag);
+		Reactor r = new Reactor();
+		r.heat = tag.getInteger("heat");
+		NBTTagList ctag = tag.getTagList("reactants", 10);
+		for (int i=0;i<ctag.tagCount();i++) {
+			NBTTagCompound temp = ctag.getCompoundTagAt(i);
+			r.reactants.add(Compound.readFromNBT(temp));
+		}
+		return r;
+	}
+	
+	public void writeToNBT(NBTTagCompound tag) {
+		tag.setInteger("heat", heat);
+		NBTTagList ctag = tag.getTagList("reactants", 10);
+		for (Compound c : reactants) {
+			NBTTagCompound temp = new NBTTagCompound();
+			c.writeToNBT(temp);
+			ctag.appendTag(temp);
+		}
+		tag.setTag("reactants", ctag);
+		System.out.println(tag);
+	}
+	
+	public void serialize(ByteBuf bytes) {
+		bytes.writeInt(heat);
+		bytes.writeInt(reactants.size());
+		
+		for (Compound c : reactants) {
+			c.serialize(bytes);
+		}
+	}
+	
+	public static Reactor deserialize(ByteBuf bytes) {
+		Reactor r = new Reactor();
+		
+		r.heat = bytes.readInt();
+		int len = bytes.readInt();
+		
+		for (int i=0;i<len;i++) {
+			Compound c = Compound.deserialize(bytes);
+			r.reactants.add(c);
+		}
+		
+		return r;
 	}
 }

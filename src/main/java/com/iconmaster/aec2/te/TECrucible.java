@@ -5,6 +5,7 @@ import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.aether.Reactor;
 import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
+import com.iconmaster.aec2.network.CrucibleSyncPacket;
 import com.iconmaster.aec2.network.HeatSyncPacket;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -44,19 +45,18 @@ public class TECrucible extends AetherCraftTE {
 					if (c!=null) {
 						reactor.addReactant(c);
 						decrStackSize(0, 1);
-						
-						System.out.println("ADD");
-						System.out.println(xCoord+" "+yCoord+" "+zCoord);
-						System.out.println(FMLCommonHandler.instance().getEffectiveSide());
-						System.out.println(reactor.reactants);
 					}
 				}
 			}
 			int oldH = reactor.heat;
 			reactor.step();
-
+			
 			if (oldH!=reactor.heat) {
 				AetherCraftPacketHandler.HANDLER.sendToAllAround(new HeatSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor.heat), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
+			}
+			
+			if (tick%10==0) {
+				AetherCraftPacketHandler.HANDLER.sendToAllAround(new CrucibleSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
 			}
 		} else {
 			reactor.step();
@@ -64,11 +64,6 @@ public class TECrucible extends AetherCraftTE {
 	}
 	
 	public void openHatch() {
-		System.out.println("REMOVE");
-		System.out.println(xCoord+" "+yCoord+" "+zCoord);
-		System.out.println(FMLCommonHandler.instance().getEffectiveSide());
-		System.out.println(reactor.reactants);
-		
 		if (reactor.reactants.isEmpty()) {
 			return;
 		}
@@ -89,5 +84,21 @@ public class TECrucible extends AetherCraftTE {
 		} else {
 			inventory[1].stackSize += 1;
 		}
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		
+		this.reactor = Reactor.readFromNBT(tagCompound.getCompoundTag("reactor"));
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		
+		NBTTagCompound tag = new NBTTagCompound();
+		reactor.writeToNBT(tag);
+		tagCompound.setTag("reactor", tag);
 	}
 }

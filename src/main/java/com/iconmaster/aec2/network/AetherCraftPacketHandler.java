@@ -17,6 +17,7 @@ public class AetherCraftPacketHandler {
 	
 	public static void init() {
 		register(HeatSyncPacket.class, Side.CLIENT);
+		register(CrucibleSyncPacket.class, Side.CLIENT);
 		
 		register(OpenHatchPacket.class, Side.SERVER);
 		register(RequestHeatSyncPacket.class, Side.SERVER);

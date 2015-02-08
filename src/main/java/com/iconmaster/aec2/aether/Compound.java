@@ -1,5 +1,6 @@
 package com.iconmaster.aec2.aether;
 
+import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -234,5 +235,30 @@ public class Compound {
 		}
 		
 		tag.setByteArray("cpd", bytes);
+	}
+	
+	public void serialize(ByteBuf bytes) {
+		Ratio[] rs = this.ratios();
+		
+		bytes.writeInt(rs.length);
+		
+		for (Ratio r : rs) {
+			bytes.writeByte(r.aether.ordinal());
+			bytes.writeByte(r.amt);
+		}
+	}
+	
+	public static Compound deserialize(ByteBuf bytes) {
+		int len = bytes.readInt();
+		ArrayList<Ratio> rs = new ArrayList<Ratio>();
+		
+		for (int i=0; i<len; i++) {
+			byte aether = bytes.readByte();
+			byte amt = bytes.readByte();
+			
+			rs.add(new Ratio(Aether.values()[aether], amt));
+		}
+		
+		return new Compound(rs);
 	}
 }
