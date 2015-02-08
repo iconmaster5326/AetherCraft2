@@ -3,13 +3,13 @@ package com.iconmaster.aec2;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
-import com.iconmaster.aec2.client.gui.AetherCraftGui;
-import com.iconmaster.aec2.gui.AetherCraftContainer;
+import com.iconmaster.aec2.client.gui.GuiStill;
 import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
+import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
 import com.iconmaster.aec2.item.ItemCompound;
-import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEData;
+import com.iconmaster.aec2.te.TEStill;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -75,8 +75,8 @@ public class AetherCraft {
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new AetherCraftGuiHandler());
 		
-		register(new AetherCraftTEBlock("testBlock", new BlockTextures("aec2:still"), AetherCraftTE.class));
-		register(new TEData("aec.te", AetherCraftTE.class, AetherCraftContainer.class, AetherCraftGui.class));
+		register(new AetherCraftTEBlock("still", new BlockTextures("aec2:still"), TEStill.class));
+		register(new TEData("aec2.still", TEStill.class, ContainerStill.class, GuiStill.class));
 
 		register(new ItemCompound());
 	}

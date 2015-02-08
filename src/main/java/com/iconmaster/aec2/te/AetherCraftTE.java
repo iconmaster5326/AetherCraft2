@@ -12,13 +12,17 @@ import net.minecraft.tileentity.TileEntity;
  *
  * @author iconmaster
  */
-public class AetherCraftTE extends TileEntity implements ISidedInventory {
+public abstract class AetherCraftTE extends TileEntity implements ISidedInventory {
 	public ItemStack[] inventory;
 	public int invSize = 0;
+	public String name = "aec.te";
 
 	public AetherCraftTE() {
+		setup();
 		inventory = new ItemStack[invSize];
 	}
+	
+	public abstract void setup();
 	
 	@Override
 	public int getSizeInventory() {
@@ -71,7 +75,7 @@ public class AetherCraftTE extends TileEntity implements ISidedInventory {
 	
 	@Override
 	public String getInventoryName() {
-		return "aec.te";
+		return name;
 	}
 
 	@Override

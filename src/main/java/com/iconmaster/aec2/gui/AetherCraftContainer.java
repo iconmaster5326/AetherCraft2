@@ -1,6 +1,7 @@
 package com.iconmaster.aec2.gui;
 
 import com.iconmaster.aec2.te.AetherCraftTE;
+import java.util.ArrayList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -12,16 +13,28 @@ import net.minecraft.item.ItemStack;
  * @author iconmaster
  * @param <T>
  */
-public class AetherCraftContainer<T extends AetherCraftTE> extends Container {
+public abstract class AetherCraftContainer<T extends AetherCraftTE> extends Container {
 	public T te;
 	
 	public int pinv_x = 8;
 	public int pinv_y = 84;
+	
+	public ArrayList<SlotGrid> grids = new ArrayList<SlotGrid>();
 
 	public AetherCraftContainer(InventoryPlayer player, T tileEntity) {
 		this.te = tileEntity;
 		
+		this.registerGrids();
+		int i=0;
+		for (SlotGrid g : grids) {
+			i=g.addSlots(this,i);
+		}
+		
 		this.bindPlayerInventory(player);
+	}
+
+	public Slot addSlot(Slot slot) {
+		return this.addSlotToContainer(slot);
 	}
 	
 	@Override
@@ -83,4 +96,6 @@ public class AetherCraftContainer<T extends AetherCraftTE> extends Container {
 
 		return stack;
 	}
+
+	public abstract void registerGrids();
 }
