@@ -1,5 +1,6 @@
 package com.icomaster.aec2.block;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -75,5 +76,9 @@ public class AetherCraftBlock extends Block {
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return new ItemStack(this, 1, world.getBlockMetadata(x, y, z));
+	}
+	
+	public void register() {
+		GameRegistry.registerBlock(this, itemclass, name);
 	}
 }
