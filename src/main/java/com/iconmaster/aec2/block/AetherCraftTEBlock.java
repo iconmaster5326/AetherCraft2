@@ -1,5 +1,6 @@
 package com.iconmaster.aec2.block;
 
+import com.iconmaster.aec2.AetherCraft;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 public class AetherCraftTEBlock extends BlockContainer {
 
 	public String name;
-	public Class<? extends ItemBlock> itemclass = null;
+	public Class<? extends ItemBlock> itemclass = ItemBlock.class;
 	public BlockTextures textures;
 	public int subBlocks;
 	public Class<? extends TileEntity> teclass;
@@ -87,6 +88,7 @@ public class AetherCraftTEBlock extends BlockContainer {
 	
 	public void register() {
 		GameRegistry.registerBlock(this, itemclass, name);
+		this.setCreativeTab(AetherCraft.tabAetherCraft);
 		
 		GameRegistry.registerTileEntity(teclass, "aec.te."+name);
 	}

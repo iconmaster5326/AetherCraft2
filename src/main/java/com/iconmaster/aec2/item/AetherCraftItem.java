@@ -1,6 +1,9 @@
 package com.iconmaster.aec2.item;
 
+import com.iconmaster.aec2.AetherCraft;
 import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.List;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -11,24 +14,25 @@ import net.minecraft.util.IIcon;
  */
 public class AetherCraftItem extends Item {
 	public String name;
-	public boolean hasMeta = false;
-	public int metas;
+	public int metas = 1;
 	public ItemTextures textures;
 
 	public AetherCraftItem(String name, ItemTextures textures, int metas) {
 		this.name = name;
 		this.metas = metas;
 		this.textures = textures;
-		this.hasMeta = true;
+		this.setHasSubtypes(true);
 	}
 	
 	public AetherCraftItem(String name, ItemTextures textures) {
 		this.name = name;
 		this.textures = textures;
+		this.setHasSubtypes(false);
 	}
 	
 	public void register() {
 		GameRegistry.registerItem(this,name);
+		this.setCreativeTab(AetherCraft.tabAetherCraft);
 	}
 
 	@Override
@@ -39,5 +43,12 @@ public class AetherCraftItem extends Item {
 	@Override
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return textures.getTexture(stack.getItemDamage());
+	}
+	
+	@Override
+	public void getSubItems(Item par1,CreativeTabs tab,List list) {
+		for (int i = 0; i < metas; i++) {
+			list.add(new ItemStack(this, 1, i));
+		}
 	}
 }
