@@ -45,7 +45,7 @@ public class ItemConversionRegistry {
 	
 	public static Compound[] getComposition(ItemStack stack) {
 		int hash = stackHash(stack);
-		Random r = new Random(hash);
+		Random r = new Random();
 		
 		ArrayList<HashSet<Compound>> a = itemToAether.get(hash);
 		if (a==null) {
