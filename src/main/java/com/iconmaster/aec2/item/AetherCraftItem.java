@@ -2,7 +2,10 @@ package com.iconmaster.aec2.item;
 
 import com.iconmaster.aec2.AetherCraft;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,6 +41,17 @@ public class AetherCraftItem extends Item {
 	@Override
 	public String getUnlocalizedName() {
 		return "aec.item."+name;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerIcons(IIconRegister register) {
+		textures.register(register);
+	}
+
+	@Override
+	public IIcon getIconIndex(ItemStack stack) {
+		return textures.getTexture(stack.getItemDamage());
 	}
 
 	@Override

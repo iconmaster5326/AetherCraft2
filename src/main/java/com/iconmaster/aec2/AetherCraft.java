@@ -2,6 +2,8 @@ package com.iconmaster.aec2;
 
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.BlockTextures;
+import com.iconmaster.aec2.item.AetherCraftItem;
+import com.iconmaster.aec2.item.ItemTextures;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -35,5 +37,8 @@ public class AetherCraft {
 	public void init(FMLInitializationEvent event) {
 		AetherCraftBlock testBlock = new AetherCraftBlock("testBlock", new BlockTextures("aec2:test"));
 		testBlock.register();
+		
+		AetherCraftItem testItem = new AetherCraftItem("testItem", new ItemTextures("aec2:itemTest"));
+		testItem.register();
 	}
 }
