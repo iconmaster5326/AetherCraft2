@@ -2,7 +2,9 @@ package com.iconmaster.aec2.client.gui;
 
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.te.AetherCraftTE;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -34,7 +36,9 @@ public abstract class AetherCraftGui<T extends AetherCraftTE> extends GuiContain
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		
+		GL11.glDisable(GL11.GL_LIGHTING);
+		this.fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("tile."+te.getInventoryName()+".name"), 7, 5, 0x404040);
+		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 	
 }

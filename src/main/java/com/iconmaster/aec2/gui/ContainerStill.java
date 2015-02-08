@@ -16,7 +16,7 @@ public class ContainerStill extends AetherCraftContainer<TEStill> {
 
 	@Override
 	public void registerGrids() {
-		grids.add(new SlotGrid(50, 9, 4, 1));
-		grids.add(new SlotGrid(50, 60, 4, 1));
+		grids.add(new SlotGrid(80, 9, 4, 1));
+		grids.add(new SlotGrid(80, 60, 4, 1));
 	}
 }
