@@ -49,7 +49,9 @@ public class ItemConversionRegistry {
 		
 		ArrayList<HashSet<Compound>> a = itemToAether.get(hash);
 		if (a==null) {
-			return null;
+			//TODO: remove this later
+			addConversion(stack, Compound.randomCompound(-1));
+			a = itemToAether.get(hash);
 		}
 		HashSet<Compound> cpds = a.get(r.nextInt(a.size()));
 		return cpds.toArray(new Compound[0]);
