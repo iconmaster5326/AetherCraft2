@@ -38,7 +38,7 @@ public abstract class AetherCraftGui<T extends AetherCraftTE> extends GuiContain
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		this.fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("tile."+te.getInventoryName()+".name"), 7, 5, 0x404040);
-		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 0x404040);
 	}
 	
 }

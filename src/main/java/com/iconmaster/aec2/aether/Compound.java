@@ -207,6 +207,9 @@ public class Compound {
 		}
 		
 		byte[] bytes = tag.getByteArray("cpd");
+		if (bytes.length==0) {
+			return null;
+		}
 		int[] compo = new int[Aether.values().length];
 		
 		for (int i=0;i<bytes.length;i+=2) {
