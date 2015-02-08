@@ -1,6 +1,7 @@
 package com.iconmaster.aec2.block;
 
 import com.iconmaster.aec2.AetherCraft;
+import com.iconmaster.aec2.te.AetherCraftTE;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,19 +33,20 @@ public class AetherCraftTEBlock extends BlockContainer {
 	public Class<? extends ItemBlock> itemclass = ItemBlock.class;
 	public BlockTextures textures;
 	public int subBlocks;
-	public Class<? extends TileEntity> teclass;
+	public Class<? extends AetherCraftTE> teclass;
 
-	public AetherCraftTEBlock(String name, BlockTextures textures, int subBlocks) {
+	public AetherCraftTEBlock(String name, BlockTextures textures, int subBlocks, Class<? extends AetherCraftTE> teclass) {
 		super(Material.rock);
 		this.setHardness(1.5f);
 
 		this.name = name;
 		this.textures = textures;
 		this.subBlocks = subBlocks;
+		this.teclass = teclass;
 	}
 
-	public AetherCraftTEBlock(String name, BlockTextures textures) {
-		this(name, textures, 1);
+	public AetherCraftTEBlock(String name, BlockTextures textures, Class<? extends AetherCraftTE> teclass) {
+		this(name, textures, 1, teclass);
 	}
 
 	public AetherCraftTEBlock addItemClass(Class<? extends ItemBlock> itemclass) {
@@ -89,8 +91,6 @@ public class AetherCraftTEBlock extends BlockContainer {
 	public void register() {
 		GameRegistry.registerBlock(this, itemclass, name);
 		this.setCreativeTab(AetherCraft.tabAetherCraft);
-		
-		GameRegistry.registerTileEntity(teclass, "aec.te."+name);
 	}
 
 	@Override
@@ -135,6 +135,11 @@ public class AetherCraftTEBlock extends BlockContainer {
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int par2) {
+		try {
+			return teclass.newInstance();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	
