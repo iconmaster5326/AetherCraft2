@@ -2,7 +2,6 @@ package com.iconmaster.aec2.gui;
 
 import com.iconmaster.aec2.AetherCraft;
 import com.iconmaster.aec2.client.gui.AetherCraftGui;
-import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEData;
 import cpw.mods.fml.common.network.IGuiHandler;

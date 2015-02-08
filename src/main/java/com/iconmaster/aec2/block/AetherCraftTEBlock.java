@@ -13,6 +13,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -143,5 +144,15 @@ public class AetherCraftTEBlock extends BlockContainer {
 		return null;
 	}
 	
-	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		TileEntity te = world.getTileEntity(x, y, z);
+
+		if (te == null || player.isSneaking()) {
+			return false;
+		}
+
+		player.openGui(AetherCraft.instance, 0, world, x, y, z);
+		return true;
+	}
 }
