@@ -28,7 +28,9 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
@@ -110,5 +112,20 @@ public class AetherCraft {
 		register(compound);
 		
 		ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)));
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		//register ALL the random compounds; ALL OF THEM
+		//TODO: get rid of this, for God's sake
+		Random r = new Random(5326);
+		for (Object s : Item.itemRegistry.getKeys()) {
+			Item item = (Item) Item.itemRegistry.getObject(s);
+			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
+			item.getSubItems(item, null, a);
+			for (int i=0;i<a.size();i++) {
+				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), Compound.randomCompound(2+r.nextInt(3), r));
+			}
+		}
 	}
 }

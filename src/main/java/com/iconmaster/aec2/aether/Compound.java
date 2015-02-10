@@ -262,17 +262,14 @@ public class Compound {
 		return new Compound(rs);
 	}
 	
-	public static Compound randomCompound(int size) {
-		Random r = new Random();
-		if (size==-1) {
-			size = r.nextInt(5)+1;
-		}
+	public static Compound randomCompound(int size, Random r) {
 		int[] a = new int[Aether.values().length];
 		
 		for (int i=0;i<size;i++) {
 			a[r.nextInt(a.length)] += 1;
 		}
 		
-		return new Compound(a);
+		Compound c = new Compound(a);
+		return c.name.startsWith("Cystal") ? randomCompound(size, r) : c;
 	}
 }

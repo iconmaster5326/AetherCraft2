@@ -49,11 +49,18 @@ public class ItemConversionRegistry {
 		
 		ArrayList<HashSet<Compound>> a = itemToAether.get(hash);
 		if (a==null) {
-			//TODO: remove this later
-			addConversion(stack, Compound.randomCompound(-1));
-			a = itemToAether.get(hash);
+			return null;
 		}
 		HashSet<Compound> cpds = a.get(r.nextInt(a.size()));
 		return cpds.toArray(new Compound[0]);
+	}
+	
+	public static ItemStack getFormation(Compound... cpds) {
+		ArrayList<ItemStack> stacks = aetherToItem.get(new HashSet(Arrays.asList(cpds)));
+		if (stacks==null || stacks.isEmpty()) {
+			return null;
+		}
+		Random r = new Random();
+		return stacks.get(r.nextInt(stacks.size()));
 	}
 }

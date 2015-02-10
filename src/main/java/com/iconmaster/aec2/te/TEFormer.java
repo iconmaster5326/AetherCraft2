@@ -1,7 +1,11 @@
 package com.iconmaster.aec2.te;
 
+import com.iconmaster.aec2.aether.Compound;
+import com.iconmaster.aec2.aether.ItemConversionRegistry;
+import com.iconmaster.aec2.item.ItemCompound;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.item.ItemStack;
 
 /**
  *
@@ -22,7 +26,25 @@ public class TEFormer extends AetherCraftTE {
 	@Override
 	public void update() {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			
+			int input = getFilledSlot(4,8);
+			if (input!=-1 && inventory[input].getItem() instanceof ItemCompound) {
+				Compound c = Compound.readFromNBT(inventory[input].stackTagCompound);
+				if (c!=null) {
+					ItemStack stack = ItemConversionRegistry.getFormation(new Compound[] {c});
+					if (stack!=null) {
+						int output = getStackableSlot(stack, 0, 4);
+						if (output!=-1) {
+							decrStackSize(input, 1);
+							
+							if (inventory[output]==null) {
+								inventory[output] = stack;
+							} else {
+								inventory[output].stackSize += 1;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
