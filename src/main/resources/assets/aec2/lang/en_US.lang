@@ -2,6 +2,7 @@ tile.aec2.still.name=Destillery
 tile.aec2.spectrometer.name=Aether Spectrometer
 tile.aec2.crucible.name=Reaction Crucible
 tile.aec2.former.name=Material Former
+tile.aec2.heater.name=Crucible Heater
 
 itemGroup.aetherCraft=AetherCraft
 

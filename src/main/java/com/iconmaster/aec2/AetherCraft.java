@@ -9,11 +9,13 @@ import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
 import com.iconmaster.aec2.client.gui.GuiCrucible;
 import com.iconmaster.aec2.client.gui.GuiFormer;
+import com.iconmaster.aec2.client.gui.GuiHeater;
 import com.iconmaster.aec2.client.gui.GuiSpectrometer;
 import com.iconmaster.aec2.client.gui.GuiStill;
 import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
 import com.iconmaster.aec2.gui.ContainerCrucible;
 import com.iconmaster.aec2.gui.ContainerFormer;
+import com.iconmaster.aec2.gui.ContainerHeater;
 import com.iconmaster.aec2.gui.ContainerSpectrometer;
 import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
@@ -22,6 +24,7 @@ import com.iconmaster.aec2.network.AetherCraftPacketHandler;
 import com.iconmaster.aec2.te.TECrucible;
 import com.iconmaster.aec2.te.TEData;
 import com.iconmaster.aec2.te.TEFormer;
+import com.iconmaster.aec2.te.TEHeater;
 import com.iconmaster.aec2.te.TESpectrometer;
 import com.iconmaster.aec2.te.TEStill;
 import cpw.mods.fml.common.Mod;
@@ -107,6 +110,9 @@ public class AetherCraft {
 		
 		register(new AetherCraftTEBlock("former", new BlockTextures("aec2:former"), TEFormer.class));
 		register(new TEData("aec2.former", TEFormer.class, ContainerFormer.class, GuiFormer.class));
+		
+		register(new AetherCraftTEBlock("heater", new BlockTextures("aec2:heater"), TEHeater.class));
+		register(new TEData("aec2.heater", TEHeater.class, ContainerHeater.class, GuiHeater.class));
 
 		compound = new ItemCompound();
 		register(compound);
