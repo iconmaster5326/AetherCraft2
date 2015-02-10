@@ -40,7 +40,10 @@ public class CrucibleSyncPacket extends AetherCraftTEPacket<TECrucible> {
 	@Override
 	public IMessage onMessage(AetherCraftTEPacket message, MessageContext ctx) {
 		super.onMessage(message, ctx);
-		te.reactor = ((CrucibleSyncPacket) message).r;
+		
+		if (te!=null) {
+			te.reactor = ((CrucibleSyncPacket) message).r;
+		}
 
 		return null;
 	}

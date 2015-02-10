@@ -20,7 +20,11 @@ public class OpenHatchPacket extends AetherCraftTEPacket<TECrucible> {
 	@Override
 	public IMessage onMessage(AetherCraftTEPacket message, MessageContext ctx) {
 		super.onMessage(message, ctx);
-		te.openHatch();
+		
+		if (te!=null) {
+			te.openHatch();
+		}
+		
 		return null;
 	}
 }

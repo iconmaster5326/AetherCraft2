@@ -20,6 +20,11 @@ public class RequestHeatSyncPacket extends AetherCraftTEPacket<TECrucible> {
 	@Override
 	public IMessage onMessage(AetherCraftTEPacket message, MessageContext ctx) {
 		super.onMessage(message, ctx);
+		
+		if (te==null) {
+			return null;
+		}
+		
 		return new HeatSyncPacket(message.x, message.y, message.z, te.reactor.heat);
 	}
 }

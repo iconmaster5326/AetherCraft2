@@ -36,7 +36,11 @@ public class HeatSyncPacket extends AetherCraftTEPacket<TECrucible> {
 	@Override
 	public IMessage onMessage(AetherCraftTEPacket message, MessageContext ctx) {
 		super.onMessage(message, ctx);
-		te.realHeat = ((HeatSyncPacket)message).heat;
+		
+		if (te!=null) {
+			te.realHeat = ((HeatSyncPacket)message).heat;
+		}
+		
 		return null;
 	}
 }
