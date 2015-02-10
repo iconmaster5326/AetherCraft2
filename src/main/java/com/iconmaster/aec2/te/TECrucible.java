@@ -7,6 +7,7 @@ import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
 import com.iconmaster.aec2.network.CrucibleSyncPacket;
 import com.iconmaster.aec2.network.HeatSyncPacket;
+import com.iconmaster.aec2.util.IHeatAcceptor;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -18,7 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
  *
  * @author iconmaster
  */
-public class TECrucible extends AetherCraftTE {
+public class TECrucible extends AetherCraftTE implements IHeatAcceptor {
 	public Reactor reactor;
 	
 	@SideOnly(Side.CLIENT)
@@ -33,11 +34,14 @@ public class TECrucible extends AetherCraftTE {
 		invSize = 2;
 		name = "aec2.crucible";
 		reactor = new Reactor();
-		reactor.heat = 100;
 	}
+	
+	boolean packetSent = false;
 
 	@Override
 	public void update() {
+		packetSent = false;
+		
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			if (inventory[0]!=null) {
 				if (inventory[0].getItem() instanceof ItemCompound) {
@@ -51,8 +55,9 @@ public class TECrucible extends AetherCraftTE {
 			int oldH = reactor.heat;
 			reactor.step();
 			
-			if (oldH!=reactor.heat) {
+			if (!packetSent && oldH!=reactor.heat) {
 				AetherCraftPacketHandler.HANDLER.sendToAllAround(new HeatSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor.heat), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
+				packetSent = true;
 			}
 			
 			if (tick%10==0) {
@@ -100,5 +105,19 @@ public class TECrucible extends AetherCraftTE {
 		NBTTagCompound tag = new NBTTagCompound();
 		reactor.writeToNBT(tag);
 		tagCompound.setTag("reactor", tag);
+	}
+
+	@Override
+	public boolean acceptsHeat() {
+		return true;
+	}
+
+	@Override
+	public void acceptHeat(int amt) {
+		reactor.heat += amt;
+		if (!packetSent) {
+			AetherCraftPacketHandler.HANDLER.sendToAllAround(new HeatSyncPacket(this.xCoord,this.yCoord,this.zCoord,reactor.heat), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId,xCoord,yCoord,zCoord,4));
+			packetSent = true;
+		}
 	}
 }
