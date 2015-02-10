@@ -124,7 +124,7 @@ public class AetherCraft {
 			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
 			item.getSubItems(item, null, a);
 			for (int i=0;i<a.size();i++) {
-				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), Compound.randomCompound(2+r.nextInt(3), r));
+				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), Compound.randomCompound(2+r.nextInt(5), r));
 			}
 		}
 	}
