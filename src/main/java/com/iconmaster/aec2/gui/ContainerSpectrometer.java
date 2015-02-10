@@ -16,6 +16,6 @@ public class ContainerSpectrometer extends AetherCraftContainer<TESpectrometer> 
 
 	@Override
 	public void registerGrids() {
-		grids.add(new SlotGrid(44, 32, 1, 1));
+		grids.add(new SlotGrid(8, 32, 1, 1));
 	}
 }

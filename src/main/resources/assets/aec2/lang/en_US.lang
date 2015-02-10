@@ -7,7 +7,12 @@ itemGroup.aetherCraft=AetherCraft
 
 gui.aec2.crucible.openHatch=Open Hatch
 gui.aec2.crucible.heat=Heat
-gui.aec2.spectrometer.name=Name
 gui.aec2.spectrometer.compo=Composition
 gui.aec2.spectrometer.compo.unknown=Composition Unknown
-gui.aec2.spectrometer.parts=parts
+gui.aec2.spectrometer.props=Properties
+
+strings.aec2.density=Density
+strings.aec2.hardness=Hardness
+strings.aec2.reactivity=Reactivity
+strings.aec2.stability=Stability
+strings.aec2.energy=Energy
