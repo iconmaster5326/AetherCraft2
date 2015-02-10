@@ -3,6 +3,7 @@ tile.aec2.spectrometer.name=Aether Spectrometer
 tile.aec2.crucible.name=Reaction Crucible
 tile.aec2.former.name=Material Former
 tile.aec2.heater.name=Mundane Crucible Heater
+tile.aec2.cooler.name=Mundane Crucible Cooler
 
 itemGroup.aetherCraft=AetherCraft
 

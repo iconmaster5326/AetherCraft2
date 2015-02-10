@@ -7,12 +7,14 @@ import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
+import com.iconmaster.aec2.client.gui.GuiCooler;
 import com.iconmaster.aec2.client.gui.GuiCrucible;
 import com.iconmaster.aec2.client.gui.GuiFormer;
 import com.iconmaster.aec2.client.gui.GuiHeater;
 import com.iconmaster.aec2.client.gui.GuiSpectrometer;
 import com.iconmaster.aec2.client.gui.GuiStill;
 import com.iconmaster.aec2.gui.AetherCraftGuiHandler;
+import com.iconmaster.aec2.gui.ContainerCooler;
 import com.iconmaster.aec2.gui.ContainerCrucible;
 import com.iconmaster.aec2.gui.ContainerFormer;
 import com.iconmaster.aec2.gui.ContainerHeater;
@@ -21,6 +23,7 @@ import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
 import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
+import com.iconmaster.aec2.te.TECooler;
 import com.iconmaster.aec2.te.TECrucible;
 import com.iconmaster.aec2.te.TEData;
 import com.iconmaster.aec2.te.TEFormer;
@@ -38,6 +41,7 @@ import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -113,11 +117,22 @@ public class AetherCraft {
 		
 		register(new AetherCraftTEBlock("heater", new BlockTextures("aec2:heater"), TEHeater.class));
 		register(new TEData("aec2.heater", TEHeater.class, ContainerHeater.class, GuiHeater.class));
+		
+		register(new AetherCraftTEBlock("cooler", new BlockTextures("aec2:cooler"), TECooler.class));
+		register(new TEData("aec2.cooler", TECooler.class, ContainerCooler.class, GuiCooler.class));
 
 		compound = new ItemCompound();
 		register(compound);
 		
 		ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)));
+		
+		TECooler.registerCoolant(new ItemStack(Items.snowball), 4);
+		TECooler.registerCoolant(new ItemStack(Blocks.snow), 16);
+		TECooler.registerCoolant(new ItemStack(Blocks.ice), 32);
+		TECooler.registerCoolant(new ItemStack(Blocks.packed_ice), 64);
+		TECooler.registerCoolant(new ItemStack(Items.water_bucket), 16);
+		TECooler.registerCoolant(new ItemStack(Items.potionitem), 8);
+		TECooler.registerCoolant(new ItemStack(Blocks.water), 16);
 	}
 	
 	@EventHandler
