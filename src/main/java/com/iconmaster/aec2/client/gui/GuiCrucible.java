@@ -7,6 +7,7 @@ import com.iconmaster.aec2.network.OpenHatchPacket;
 import com.iconmaster.aec2.network.RequestHeatSyncPacket;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TECrucible;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.Random;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -31,14 +32,14 @@ public class GuiCrucible extends AetherCraftGui<TECrucible> {
 	public void initGui() {
 		super.initGui();
 		
-		buttonList.add(new GuiButton(0, guiLeft+110, guiTop+57, 60, 20, "Open Hatch"));
+		buttonList.add(new GuiButton(0, guiLeft+110, guiTop+57, 60, 20, LanguageRegistry.instance().getStringLocalization("gui.aec2.crucible.openHatch")));
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		
-		fontRendererObj.drawString("Heat: "+te.realHeat, 7, 54, 0x404040);
+		fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.crucible.heat")+": "+te.realHeat, 7, 54, 0x404040);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TESpectrometer;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,13 +37,13 @@ public class GuiSpectrometer extends AetherCraftGui<TESpectrometer> {
 		ItemStack stack = te.inventory[0];
 		
 		if (stack!=null) {
-			fontRendererObj.drawString("Name: "+stack.getDisplayName(), TEXT_X, TEXT_Y, TEXT_C);
+			fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.name")+": "+stack.getDisplayName(), TEXT_X, TEXT_Y, TEXT_C);
 			if (stack.getItem() instanceof ItemCompound) {
 				NBTTagCompound tag = stack.getTagCompound();
 				if (tag!=null) {
 					Compound cpd = Compound.readFromNBT(tag);
 					if (cpd!=null) {
-						fontRendererObj.drawString("Composition:", TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
+						fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.compo")+":", TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
 						int i=0;
 						int row=3;
 						for (int amt : cpd.aethers) {
@@ -58,9 +59,9 @@ public class GuiSpectrometer extends AetherCraftGui<TESpectrometer> {
 			} else {
 				Compound[] cpds = ItemConversionRegistry.getComposition(stack);
 				if (cpds==null) {
-					fontRendererObj.drawString("Composition Unknown", TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
+					fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.compo.unknown"), TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
 				} else {
-					fontRendererObj.drawString("Composition:", TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
+					fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.compo")+":", TEXT_X, TEXT_Y + TEXT_H*2, TEXT_C);
 					int row=3;
 					for (Compound cpd : cpds) {
 						fontRendererObj.drawString(cpd.name, TEXT_X + 5, TEXT_Y + TEXT_H*(row), TEXT_C);

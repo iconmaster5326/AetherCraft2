@@ -4,3 +4,10 @@ tile.aec2.crucible.name=Reaction Crucible
 tile.aec2.former.name=Material Former
 
 itemGroup.aetherCraft=AetherCraft
+
+gui.aec2.crucible.openHatch=Open Hatch
+gui.aec2.crucible.heat=Heat
+gui.aec2.spectrometer.name=Name
+gui.aec2.spectrometer.compo=Composition
+gui.aec2.spectrometer.compo.unknown=Composition Unknown
+gui.aec2.spectrometer.parts=parts
