@@ -2,6 +2,8 @@ package com.iconmaster.aec2.te;
 
 import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
+import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
+import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.aec2.item.ItemCompound;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -30,7 +32,7 @@ public class TEFormer extends AetherCraftTE {
 			if (input!=-1 && inventory[input].getItem() instanceof ItemCompound) {
 				Compound c = Compound.readFromNBT(inventory[input].stackTagCompound);
 				if (c!=null) {
-					ItemStack stack = ItemConversionRegistry.getFormation(new Compound[] {c});
+					ItemStack stack = ItemConversionRegistry.getFormation(new RatioList(new CRatio(c,1)));
 					if (stack!=null) {
 						int output = getStackableSlot(stack, 0, 4);
 						if (output!=-1) {

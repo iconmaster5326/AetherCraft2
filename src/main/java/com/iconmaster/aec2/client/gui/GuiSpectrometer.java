@@ -3,6 +3,7 @@ package com.iconmaster.aec2.client.gui;
 import com.iconmaster.aec2.aether.Aether;
 import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
+import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.item.ItemCompound;
 import com.iconmaster.aec2.te.AetherCraftTE;
@@ -87,14 +88,14 @@ public class GuiSpectrometer extends AetherCraftGui<TESpectrometer> {
 				}
 			} else {
 				if (compoMode) {
-					Compound[] cpds = ItemConversionRegistry.getComposition(stack);
+					CRatio[] cpds = ItemConversionRegistry.getComposition(stack).ratios;
 					if (cpds==null) {
 						fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.compo.unknown"), TEXT_X, TEXT_Y, TEXT_C);
 					} else {
 						fontRendererObj.drawString(LanguageRegistry.instance().getStringLocalization("gui.aec2.spectrometer.compo")+":", TEXT_X, TEXT_Y, TEXT_C);
 						int row=1;
-						for (Compound cpd : cpds) {
-							fontRendererObj.drawString(cpd.name, TEXT_X + 5, TEXT_Y + TEXT_H*(row), TEXT_C);
+						for (CRatio cpd : cpds) {
+							fontRendererObj.drawString(cpd.amt + " " + cpd.c.name, TEXT_X + 5, TEXT_Y + TEXT_H*(row), TEXT_C);
 							row++;
 						}
 					}

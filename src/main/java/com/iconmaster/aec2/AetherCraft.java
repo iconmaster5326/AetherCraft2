@@ -1,9 +1,9 @@
 package com.iconmaster.aec2;
 
-import com.iconmaster.aec2.aether.Aether;
 import com.iconmaster.aec2.aether.Compound;
-import com.iconmaster.aec2.aether.Compound.Ratio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
+import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
+import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockTextures;
@@ -124,7 +124,7 @@ public class AetherCraft {
 		compound = new ItemCompound();
 		register(compound);
 		
-		ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)));
+		//ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new CRatio(new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)),1));
 		
 		TECooler.registerCoolant(new ItemStack(Items.snowball), 4);
 		TECooler.registerCoolant(new ItemStack(Blocks.snow), 16);
@@ -145,7 +145,7 @@ public class AetherCraft {
 			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
 			item.getSubItems(item, null, a);
 			for (int i=0;i<a.size();i++) {
-				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), Compound.randomCompound(2+r.nextInt(5), r));
+				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), new RatioList(new CRatio(Compound.randomCompound(2+r.nextInt(5), r), 1)));
 			}
 		}
 	}
