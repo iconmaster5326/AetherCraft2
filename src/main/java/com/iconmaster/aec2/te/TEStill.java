@@ -37,9 +37,10 @@ public class TEStill extends AetherCraftTE {
 				boolean sucsess = true;
 				ArrayList<ItemStack> output = new ArrayList<ItemStack>();
 				for (CRatio cpd : cpds) {
-					ItemStack cpdStack = new ItemStack(AetherCraft.compound);
+					ItemStack cpdStack = new ItemStack(AetherCraft.compound,cpd.amt);
 					cpdStack.setTagCompound(new NBTTagCompound());
 					cpd.c.writeToNBT(cpdStack.getTagCompound());
+					cpdStack.stackSize = cpd.amt;
 
 					int slot = getStackableSlot(cpdStack, 4, 8);
 					if (slot==-1) {
@@ -57,7 +58,7 @@ public class TEStill extends AetherCraftTE {
 							if (inventory[slot]==null) {
 								inventory[slot] = stack;
 							} else {
-								inventory[slot].stackSize += 1;
+								inventory[slot].stackSize += stack.stackSize;
 							}
 						}
 					}

@@ -133,6 +133,39 @@ public class AetherCraft {
 		TECooler.registerCoolant(new ItemStack(Items.water_bucket), 16);
 		TECooler.registerCoolant(new ItemStack(Items.potionitem), 8);
 		TECooler.registerCoolant(new ItemStack(Blocks.water), 16);
+		
+//		Compound c3 = new Compound(new Compound.Ratio(Aether.SOLGEM, 1));
+//		Compound c2 = new Compound(new Compound.Ratio(Aether.HAETRONOUS, 1));
+//		Compound c1 = new Compound(new Compound.Ratio(Aether.GEOTOGOUS, 1));
+//		System.out.println(c1.hashCode());
+//		System.out.println(c2.hashCode());
+//		System.out.println(c3.hashCode());
+		
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
+//		System.out.println(ItemConversionRegistry.begin);
+		
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
+//		System.out.println(ItemConversionRegistry.begin);
+		
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 2));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 1));
+//		System.out.println(ItemConversionRegistry.begin);
+
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c3, 2));
+//		System.out.println(ItemConversionRegistry.begin);
+//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 4));
+//		System.out.println(ItemConversionRegistry.begin);
+		
+		
 	}
 	
 	@EventHandler
@@ -145,7 +178,12 @@ public class AetherCraft {
 			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
 			item.getSubItems(item, null, a);
 			for (int i=0;i<a.size();i++) {
-				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), new RatioList(new CRatio(Compound.randomCompound(2+r.nextInt(5), r), 1)));
+				int cpds = 1+r.nextInt(3);
+				CRatio[] ratios = new CRatio[cpds];
+				for (int ii=0;ii<cpds;ii++) {
+					ratios[ii] = new CRatio(Compound.randomCompound(2+r.nextInt(4), r), 1+r.nextInt(16));
+				}
+				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), new RatioList(ratios));
 			}
 		}
 	}
