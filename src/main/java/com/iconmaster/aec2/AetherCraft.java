@@ -142,28 +142,28 @@ public class AetherCraft {
 //		System.out.println(c3.hashCode());
 		
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 		
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 		
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 2));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 1));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c3, 2));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 //		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 4));
-//		System.out.println(ItemConversionRegistry.begin);
+//		System.out.println(ItemConversionRegistry.aetherToItem);
 		
 		
 	}

@@ -148,7 +148,7 @@ public class ItemConversionRegistry {
 		}
 	}
 
-	public static HashMap<Compound, LookupTree> begin = new HashMap<Compound, LookupTree>();
+	public static HashMap<Compound, LookupTree> aetherToItem = new HashMap<Compound, LookupTree>();
 
 	public static void addMat(ItemStack stack, CRatio... ratios) {
 		if (ratios.length == 0) {
@@ -157,10 +157,10 @@ public class ItemConversionRegistry {
 		Arrays.sort(ratios);
 		CRatio first = ratios[0];
 
-		LookupTree tree = begin.get(first.c);
+		LookupTree tree = aetherToItem.get(first.c);
 
 		if (tree == null) {
-			begin.put(first.c, new LookupTree(makeTree(ratios, stack)));
+			aetherToItem.put(first.c, new LookupTree(makeTree(ratios, stack)));
 		} else {
 			LookupNode oldTree = tree.tree;
 			LookupNode newTree = makeTree(ratios, stack);
@@ -276,17 +276,10 @@ public class ItemConversionRegistry {
 		}
 	}
 	
-	public static ArrayList<LookupResult> getFormation(CRatio[] ratios) {
+	public static ArrayList<LookupResult> getFormation(CRatio[] ratios, LookupNode node) {
 		if (ratios==null || ratios.length==0) {
 			return new ArrayList<LookupResult>();
 		}
-		Arrays.sort(ratios);
-		
-		LookupTree tree = begin.get(ratios[0].c);
-		if (tree==null) {
-			return new ArrayList<LookupResult>();
-		}
-		LookupNode node = tree.tree;
 		
 		int i=0;
 		CRatio ratio = ratios[0];
@@ -310,7 +303,7 @@ public class ItemConversionRegistry {
 				}
 				if (node.left!=null && node.left.ratio.amt<=ratio.amt) {
 					//add all subnode's stuff
-					a.addAll(getFormation(Arrays.copyOfRange(ratios, i+1, ratios.length)));
+					a.addAll(getFormation(Arrays.copyOfRange(ratios, i+1, ratios.length), node));
 					node = node.left;
 					i++;
 					if (node==null || i>=ratios.length) {
@@ -335,5 +328,19 @@ public class ItemConversionRegistry {
 		}
 		
 		return a;
+	}
+	
+	public static ArrayList<LookupResult> getFormation(CRatio[] ratios) {
+		if (ratios==null || ratios.length==0) {
+			return new ArrayList<LookupResult>();
+		}
+		Arrays.sort(ratios);
+		
+		LookupTree tree = aetherToItem.get(ratios[0].c);
+		if (tree==null) {
+			return new ArrayList<LookupResult>();
+		}
+		
+		return getFormation(ratios, tree.tree);
 	}
 }
