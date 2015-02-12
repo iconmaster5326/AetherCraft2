@@ -336,11 +336,15 @@ public class ItemConversionRegistry {
 		}
 		Arrays.sort(ratios);
 		
-		LookupTree tree = aetherToItem.get(ratios[0].c);
-		if (tree==null) {
-			return new ArrayList<LookupResult>();
+		ArrayList<LookupResult> a = new ArrayList<LookupResult>();
+		for (int i=0;i<ratios.length;i++) {
+			CRatio[] sub = Arrays.copyOfRange(ratios, i, ratios.length);
+			LookupTree tree = aetherToItem.get(sub[0].c);
+			if (tree!=null) {
+				a.addAll(getFormation(sub, tree.tree));
+			}
 		}
 		
-		return getFormation(ratios, tree.tree);
+		return a;
 	}
 }
