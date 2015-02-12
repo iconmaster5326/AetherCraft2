@@ -100,7 +100,7 @@ public class AetherCraftTEBlock extends BlockContainer {
 		super.breakBlock(world, x, y, z, par5, par6);
 	}
 
-	private void dropItems(World world, int x, int y, int z) {
+	public void dropItems(World world, int x, int y, int z) {
 		Random rand = new Random();
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 

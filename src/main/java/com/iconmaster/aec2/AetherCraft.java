@@ -6,6 +6,7 @@ import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
+import com.iconmaster.aec2.block.BlockCrucible;
 import com.iconmaster.aec2.block.BlockTextures;
 import com.iconmaster.aec2.client.gui.GuiCooler;
 import com.iconmaster.aec2.client.gui.GuiCrucible;
@@ -109,7 +110,7 @@ public class AetherCraft {
 		register(new AetherCraftTEBlock("spectrometer", new BlockTextures("aec2:spectrometer"), TESpectrometer.class));
 		register(new TEData("aec2.spectrometer", TESpectrometer.class, ContainerSpectrometer.class, GuiSpectrometer.class));
 
-		register(new AetherCraftTEBlock("crucible", new BlockTextures("aec2:crucible"), TECrucible.class));
+		register(new BlockCrucible("crucible", new BlockTextures("aec2:crucible"), TECrucible.class));
 		register(new TEData("aec2.crucible", TECrucible.class, ContainerCrucible.class, GuiCrucible.class));
 		
 		register(new AetherCraftTEBlock("former", new BlockTextures("aec2:former"), TEFormer.class));
