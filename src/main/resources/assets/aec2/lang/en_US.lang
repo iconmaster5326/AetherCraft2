@@ -4,6 +4,7 @@ tile.aec2.crucible.name=Reaction Crucible
 tile.aec2.former.name=Material Former
 tile.aec2.heater.name=Mundane Crucible Heater
 tile.aec2.cooler.name=Mundane Crucible Cooler
+tile.aec2.forge.name=Aetosmith's Forge
 
 itemGroup.aetherCraft=AetherCraft
 

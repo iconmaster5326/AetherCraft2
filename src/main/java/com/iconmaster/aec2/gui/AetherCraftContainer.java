@@ -51,7 +51,7 @@ public abstract class AetherCraftContainer<T extends AetherCraftTE> extends Cont
 		}
 
 		for (int x = 0; x < 9; x++) {
-			addSlotToContainer(new Slot(player, x, 8 + x * 18, 142));
+			addSlotToContainer(new Slot(player, x, pinv_x + x * 18, pinv_y + (142-84)));
 		}
 	}
 	
