@@ -57,6 +57,26 @@ public class TEFormer extends AetherCraftTE {
 					int output = getStackableSlot(stack, 0, 4);
 					if (output != -1) {
 						for (CRatio cr : lr.ratios) {
+							boolean found = false;
+							for (int i = 4; i < 8; i++) {
+								if (inventory[i] != null && inventory[i].getItem() instanceof ItemCompound) {
+									Compound c = Compound.readFromNBT(inventory[i].stackTagCompound);
+									if (c != null && c.equals(cr.c)) {
+										if (inventory[i].stackSize<cr.amt) {
+											return;
+										} else {
+											found = true;
+										}
+									}
+								}
+							}
+							
+							if (!found) {
+								return;
+							}
+						}
+						
+						for (CRatio cr : lr.ratios) {
 							for (int i = 4; i < 8; i++) {
 								if (inventory[i] != null && inventory[i].getItem() instanceof ItemCompound) {
 									Compound c = Compound.readFromNBT(inventory[i].stackTagCompound);

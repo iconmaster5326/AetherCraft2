@@ -51,6 +51,11 @@ public class ItemConversionRegistry {
 		public int compareTo(CRatio o) {
 			return c.hashCode() - o.c.hashCode();
 		}
+
+		@Override
+		public String toString() {
+			return "CRatio{" + "c=" + c + ", amt=" + amt + '}';
+		}
 	}
 
 	public static class RatioList {
@@ -102,7 +107,7 @@ public class ItemConversionRegistry {
 
 		addMat(stack, cpds.ratios);
 		
-		System.out.println("[AEC2] MAP "+aetherToItem);
+		//System.out.println("[AEC2] MAP "+aetherToItem);
 	}
 
 	public static RatioList getComposition(ItemStack stack) {
@@ -132,7 +137,7 @@ public class ItemConversionRegistry {
 
 		@Override
 		public String toString() {
-			return "{" + left + "(" + ratio.amt + " x " + ratio.c.hashCode() + ")" + down + "}";
+			return "LookupNode{" + "dest=" + dest + ", left=" + left + ", down=" + down + ", ratio=" + ratio + '}';
 		}
 	}
 
@@ -333,7 +338,7 @@ public class ItemConversionRegistry {
 	
 	public static ArrayList<LookupResult> getFormation(CRatio[] ratios) {
 		if (ratios==null || ratios.length==0) {
-			System.out.println("[AEC2] RET NONE");
+			//System.out.println("[AEC2] RET NONE");
 			return new ArrayList<LookupResult>();
 		}
 		Arrays.sort(ratios);
@@ -347,7 +352,7 @@ public class ItemConversionRegistry {
 			}
 		}
 		
-		System.out.println("[AEC2] RET "+a);
+		//System.out.println("[AEC2] RET "+a);
 		return a;
 	}
 }
