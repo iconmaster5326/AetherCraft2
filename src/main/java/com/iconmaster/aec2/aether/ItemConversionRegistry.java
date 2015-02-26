@@ -101,6 +101,8 @@ public class ItemConversionRegistry {
 		ita.add(cpds);
 
 		addMat(stack, cpds.ratios);
+		
+		System.out.println("[AEC2] MAP "+aetherToItem);
 	}
 
 	public static RatioList getComposition(ItemStack stack) {
@@ -274,6 +276,11 @@ public class ItemConversionRegistry {
 			this.ratios = ratios;
 			this.output = output;
 		}
+
+		@Override
+		public String toString() {
+			return "LookupResult{" + "ratios=" + ratios + ", output=" + output + '}';
+		}
 	}
 	
 	public static ArrayList<LookupResult> getFormation(CRatio[] ratios, LookupNode node) {
@@ -284,18 +291,15 @@ public class ItemConversionRegistry {
 		int i=0;
 		CRatio ratio = ratios[0];
 		ArrayList<LookupResult> a = new ArrayList<LookupResult>();
-		ArrayList<CRatio> newRs = new ArrayList<CRatio>();
 		
 		while (true) {
 			if (node.ratio.c.equals(ratio.c) && node.ratio.amt>ratio.amt) {
 				break;
 			}
 			//add single node's stuff
-			newRs.add(node.ratio);
 			for (ItemStack st : node.dest) {
-				a.add(new LookupResult(newRs.toArray(new CRatio[0]), st));
+				a.add(new LookupResult(getComposition(st).ratios, st));
 			}
-			newRs.remove(newRs.size()-1);
 			
 			if (node.ratio.c.equals(ratio.c)) {
 				if (node.ratio.amt>ratio.amt) {
@@ -303,14 +307,12 @@ public class ItemConversionRegistry {
 				}
 				if (node.left!=null && node.left.ratio.amt<=ratio.amt) {
 					//add all subnode's stuff
-					a.addAll(getFormation(Arrays.copyOfRange(ratios, i+1, ratios.length), node));
 					node = node.left;
-					i++;
+					a.addAll(getFormation(ratios, node));
 					if (node==null || i>=ratios.length) {
 						break;
 					}
 				} else {
-					newRs.add(node.ratio);
 					node = node.down;
 					i++;
 					if (node==null || i>=ratios.length) {
@@ -318,7 +320,6 @@ public class ItemConversionRegistry {
 					}
 				}
 			} else {
-				newRs.add(node.ratio);
 				node = node.down;
 				i++;
 				if (node==null || i>=ratios.length) {
@@ -332,6 +333,7 @@ public class ItemConversionRegistry {
 	
 	public static ArrayList<LookupResult> getFormation(CRatio[] ratios) {
 		if (ratios==null || ratios.length==0) {
+			System.out.println("[AEC2] RET NONE");
 			return new ArrayList<LookupResult>();
 		}
 		Arrays.sort(ratios);
@@ -345,6 +347,7 @@ public class ItemConversionRegistry {
 			}
 		}
 		
+		System.out.println("[AEC2] RET "+a);
 		return a;
 	}
 }

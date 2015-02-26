@@ -1,9 +1,10 @@
 package com.iconmaster.aec2;
 
+import com.iconmaster.aec2.aether.Aether;
 import com.iconmaster.aec2.aether.Compound;
+import com.iconmaster.aec2.aether.Compound.Ratio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
-import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockCrucible;
@@ -37,7 +38,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
@@ -59,6 +59,7 @@ public class AetherCraft {
 	public static final String VERSION = "@VERSION@";
 
 	public static CreativeTabs tabAetherCraft = new CreativeTabs("aetherCraft") {
+		@Override
 		public ItemStack getIconItemStack() {
 			return new ItemStack(compound, 1, 0);
 		}
@@ -173,19 +174,41 @@ public class AetherCraft {
 	public void postInit(FMLPostInitializationEvent event) {
 		//register ALL the random compounds; ALL OF THEM
 		//TODO: get rid of this, for God's sake
-		Random r = new Random(5326);
-		for (Object s : Item.itemRegistry.getKeys()) {
-			Item item = (Item) Item.itemRegistry.getObject(s);
-			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
-			item.getSubItems(item, null, a);
-			for (int i=0;i<a.size();i++) {
-				int cpds = 1+r.nextInt(3);
-				CRatio[] ratios = new CRatio[cpds];
-				for (int ii=0;ii<cpds;ii++) {
-					ratios[ii] = new CRatio(Compound.randomCompound(2+r.nextInt(4), r), 1+r.nextInt(16));
-				}
-				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), new RatioList(ratios));
-			}
-		}
+//		Random r = new Random(5326);
+//		for (Object s : Item.itemRegistry.getKeys()) {
+//			Item item = (Item) Item.itemRegistry.getObject(s);
+//			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
+//			item.getSubItems(item, null, a);
+//			for (int i=0;i<a.size();i++) {
+//				int cpds = 1+r.nextInt(3);
+//				CRatio[] ratios = new CRatio[cpds];
+//				for (int ii=0;ii<cpds;ii++) {
+//					ratios[ii] = new CRatio(Compound.randomCompound(2+r.nextInt(4), r), 1+r.nextInt(16));
+//				}
+//				ItemConversionRegistry.addConversion(new ItemStack(item,1,i), new RatioList(ratios));
+//			}
+//		}
+	
+		ItemConversionRegistry.addConversion(
+			new ItemStack(Items.apple), new ItemConversionRegistry.RatioList(
+				new CRatio(
+					new Compound(
+						new Ratio(Aether.SOLGEM,1),
+						new Ratio(Aether.DRAYROSA,1)
+					),
+				1)
+			)
+		);
+		
+		ItemConversionRegistry.addConversion(
+			new ItemStack(Items.arrow), new ItemConversionRegistry.RatioList(
+				new CRatio(
+					new Compound(
+						new Ratio(Aether.SOLGEM,1),
+						new Ratio(Aether.DRAYROSA,1)
+					),
+				2)
+			)
+		);
 	}
 }
