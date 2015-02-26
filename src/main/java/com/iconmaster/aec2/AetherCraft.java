@@ -1,6 +1,7 @@
 package com.iconmaster.aec2;
 
 import com.iconmaster.aec2.aether.Compound;
+import com.iconmaster.aec2.aether.ForgeRegistry;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
@@ -140,6 +141,9 @@ public class AetherCraft {
 		TECooler.registerCoolant(new ItemStack(Items.water_bucket), 16);
 		TECooler.registerCoolant(new ItemStack(Items.potionitem), 8);
 		TECooler.registerCoolant(new ItemStack(Blocks.water), 16);
+		
+		//add Forge recipes
+		ForgeRegistry.registerForgeRecipes();
 
 //		Compound c3 = new Compound(new Compound.Ratio(Aether.SOLGEM, 1));
 //		Compound c2 = new Compound(new Compound.Ratio(Aether.HAETRONOUS, 1));

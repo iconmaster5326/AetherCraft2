@@ -3,9 +3,11 @@ package com.iconmaster.aec2.client.gui;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -41,4 +43,17 @@ public abstract class AetherCraftGui<T extends AetherCraftTE> extends GuiContain
 		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 0x404040);
 	}
 	
+	//encapsulation is bad, kids
+	public void drawItemStack(ItemStack stack, int x, int y) {
+        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+        this.zLevel = 200.0F;
+        itemRender.zLevel = 200.0F;
+        FontRenderer font = null;
+        if (stack != null) font = stack.getItem().getFontRenderer(stack);
+        if (font == null) font = fontRendererObj;
+        itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), stack, x, y);
+        itemRender.renderItemOverlayIntoGUI(font, this.mc.getTextureManager(), stack, x, y, null);
+        this.zLevel = 0.0F;
+        itemRender.zLevel = 0.0F;
+    }
 }

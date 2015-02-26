@@ -19,10 +19,21 @@ public abstract class AetherCraftContainer<T extends AetherCraftTE> extends Cont
 	public int pinv_x = 8;
 	public int pinv_y = 84;
 	
+	InventoryPlayer inv;
+	
 	public ArrayList<SlotGrid> grids = new ArrayList<SlotGrid>();
 
 	public AetherCraftContainer(InventoryPlayer player, T tileEntity) {
 		this.te = tileEntity;
+		this.inv = player;
+		
+		regenerateSlots();
+	}
+	
+	public void regenerateSlots() {
+		grids.clear();
+		inventoryItemStacks.clear();
+		inventorySlots.clear();
 		
 		this.registerGrids();
 		int i=0;
@@ -30,7 +41,7 @@ public abstract class AetherCraftContainer<T extends AetherCraftTE> extends Cont
 			i=g.addSlots(this,i);
 		}
 		
-		this.bindPlayerInventory(player);
+		this.bindPlayerInventory(inv);
 	}
 
 	public Slot addSlot(Slot slot) {

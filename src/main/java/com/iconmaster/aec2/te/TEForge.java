@@ -1,10 +1,13 @@
 package com.iconmaster.aec2.te;
 
+import com.iconmaster.aec2.gui.ContainerForge;
+
 /**
  *
  * @author iconmaster
  */
 public class TEForge extends AetherCraftTE {
+	public ContainerForge container;
 
 	public TEForge() {
 		super();
