@@ -26,7 +26,7 @@ public class ContainerForge extends AetherCraftContainer<TEForge> {
 		grids.add(new SlotGrid(9999, 9999, 4-gridSize, 1));
 		grids.add(new SlotGrid(123, 58, 1, 1));
 		
-		pinv_y = 148;
+		pinv_y = 117;
 	}
 	
 	@Override

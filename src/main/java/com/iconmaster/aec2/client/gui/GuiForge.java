@@ -1,7 +1,7 @@
 package com.iconmaster.aec2.client.gui;
 
-import com.iconmaster.aec2.aether.ForgeRegistry;
-import com.iconmaster.aec2.aether.ForgeRegistry.ForgeRecipe;
+import com.iconmaster.aec2.aether.AetoForgeRegistry;
+import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeRecipe;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEForge;
@@ -25,7 +25,7 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		
 		gui_texture = new ResourceLocation("aec2", "textures/gui/forgeGui.png");
 		
-		ySize = 230;
+		ySize = 198;
 	}
 	
 	public static final int COLS = 4;
@@ -38,16 +38,22 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		int y = (this.height - this.ySize) / 2;
 		
 		if (selection!=-1) {
-			int inputs = ForgeRegistry.recipes.get(selection).inputs.size();
-			for (int i=0;i<inputs; i++) {
+			AetoForgeRecipe r = AetoForgeRegistry.recipes.get(selection);
+			
+			for (int i=0;i<r.inputs.size(); i++) {
 				drawTexturedModalRect(x + 94 + 18*i, y + 9, 238, 0, 18, 18);
 			}
 		}
 		
-		List<ForgeRecipe> rs = ForgeRegistry.recipes;
+		List<AetoForgeRecipe> rs = AetoForgeRegistry.recipes;
 		for (int i=0;i<rs.size(); i++) {
 			int row = i%COLS;
 			int col = i/COLS;
+			
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			mc.renderEngine.bindTexture(gui_texture);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			
 			if (i==selection) {
 				drawTexturedModalRect(x+8+18*row-1, y+21+18*col-1, 238, 18, 18, 18);
@@ -55,11 +61,6 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 			
 			ItemStack toDisplay = rs.get(i).getDisplayStack();
 			drawItemStack(toDisplay, x+8+18*row, y+21+18*col);
-			
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			mc.renderEngine.bindTexture(gui_texture);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
 	}
 
@@ -70,7 +71,7 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 		
-		List<ForgeRecipe> rs = ForgeRegistry.recipes;
+		List<AetoForgeRecipe> rs = AetoForgeRegistry.recipes;
 		for (int i=0;i<rs.size(); i++) {
 			int row = i%COLS;
 			int col = i/COLS;
@@ -78,6 +79,11 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 			if (mouseX>=x+8+18*row && mouseX<=x+8+18*row+18 && mouseY>=y+21+18*col && mouseY<=y+21+18*col+18) {
 				List<String> list = new ArrayList<String>();
 				list.add(rs.get(i).name);
+				
+				for (String s : rs.get(i).desc) {
+					list.add("\u00a77\u00a7o"+s);
+				}
+				
 				this.drawHoveringText(list, mouseX-x, mouseY-y, fontRendererObj);
 			}
 		}
@@ -90,7 +96,7 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 		
-		List<ForgeRecipe> rs = ForgeRegistry.recipes;
+		List<AetoForgeRecipe> rs = AetoForgeRegistry.recipes;
 		for (int i=0;i<rs.size(); i++) {
 			int row = i%COLS;
 			int col = i/COLS;

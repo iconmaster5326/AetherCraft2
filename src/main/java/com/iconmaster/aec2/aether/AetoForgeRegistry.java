@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
  *
  * @author iconmaster
  */
-public class ForgeRegistry {
-	public static class ForgeInput {
+public class AetoForgeRegistry {
+	public static class AetoForgeInput {
 		public static final int HARDNESS = 0;
 		public static final int DENSITY = 1;
 		public static final int ENERGY = 2;
@@ -40,12 +40,12 @@ public class ForgeRegistry {
 			return -1;
 		}
 
-		public ForgeInput(ItemStack item) {
+		public AetoForgeInput(ItemStack item) {
 			this.item = item;
 			this.compound = false;
 		}
 		
-		public ForgeInput(int amt, int... statsNeeded) {
+		public AetoForgeInput(int amt, int... statsNeeded) {
 			this.compound = true;
 			this.statsNeeded = statsNeeded;
 		}
@@ -74,12 +74,12 @@ public class ForgeRegistry {
 		}
 	}
 	
-	public static abstract class ForgeRecipe {
-		public Collection<ForgeInput> inputs;
+	public static abstract class AetoForgeRecipe {
+		public Collection<AetoForgeInput> inputs;
 		public String name;
-		public String desc;
+		public String[] desc;
 
-		public ForgeRecipe(Collection<ForgeInput> inputs, String name, String desc) {
+		public AetoForgeRecipe(Collection<AetoForgeInput> inputs, String name, String... desc) {
 			this.inputs = inputs;
 			this.name = name;
 			this.desc = desc;
@@ -89,14 +89,14 @@ public class ForgeRegistry {
 		public abstract ItemStack getDisplayStack();
 	}
 	
-	public static List<ForgeRecipe> recipes = new ArrayList<ForgeRecipe>();
+	public static List<AetoForgeRecipe> recipes = new ArrayList<AetoForgeRecipe>();
 	
-	public static void addRecipe(ForgeRecipe recipe) {
+	public static void addRecipe(AetoForgeRecipe recipe) {
 		recipes.add(recipe);
 	}
 	
 	public static void registerForgeRecipes() {
-		addRecipe(new ForgeRecipe(Arrays.asList(new ForgeInput[] {null}), "Test Item", "Test item desc goes here") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null}), "Test Item", "Test item desc goes here") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;
@@ -108,7 +108,7 @@ public class ForgeRegistry {
 			}
 		});
 		
-		addRecipe(new ForgeRecipe(Arrays.asList(new ForgeInput[] {null,null}), "Test Item 2", "Test item desc goes here 2") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null,null}), "Test Item 2", "line 1", "line 2") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;
@@ -120,7 +120,7 @@ public class ForgeRegistry {
 			}
 		});
 		
-		addRecipe(new ForgeRecipe(Arrays.asList(new ForgeInput[] {null,null,null}), "Test Item 3", "Test item desc goes here 3") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null,null,null}), "Test Item 3", "line 1", "line 2", "line 3") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;
