@@ -19,3 +19,5 @@ strings.aec2.hardness=Hardness
 strings.aec2.reactivity=Reactivity
 strings.aec2.stability=Stability
 strings.aec2.energy=Energy
+
+item.aec2.forgedPick.name=Aetoforged Pickaxe
