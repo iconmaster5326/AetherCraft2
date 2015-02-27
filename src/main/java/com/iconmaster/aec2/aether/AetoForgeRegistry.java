@@ -3,7 +3,6 @@ package com.iconmaster.aec2.aether;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -120,11 +119,11 @@ public class AetoForgeRegistry {
 	}
 	
 	public static abstract class AetoForgeRecipe {
-		public Collection<AetoForgeInput> inputs;
+		public List<AetoForgeInput> inputs;
 		public String name;
 		public String[] desc;
 
-		public AetoForgeRecipe(Collection<AetoForgeInput> inputs, String name, String... desc) {
+		public AetoForgeRecipe(List<AetoForgeInput> inputs, String name, String... desc) {
 			this.inputs = inputs;
 			this.name = name;
 			this.desc = desc;
