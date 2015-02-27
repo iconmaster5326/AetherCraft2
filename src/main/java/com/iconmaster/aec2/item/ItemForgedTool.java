@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import com.iconmaster.aec2.aether.Compound;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import org.lwjgl.input.Keyboard;
 
 /**
  *
@@ -109,6 +111,7 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamageForRenderPass(int stack, int pass) {
 		return textures.getTexture(pass);
 	}
@@ -119,6 +122,7 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIconIndex(ItemStack stack) {
 		return null;
 	}
@@ -130,6 +134,7 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean isFull3D() {
 		return true;
 	}
@@ -149,4 +154,26 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 		NBTTagCompound cpdt = stack.stackTagCompound.getCompoundTag("cpd"+n);
 		return Compound.readFromNBT(cpdt);
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List a, boolean bool) {
+		super.addInformation(stack, player, a, bool);
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+			Compound c1 = getCompo(stack, 1);
+			Compound c2 = getCompo(stack, 2);
+			a.add("");
+			a.add("\u00a77\u00a7oHead Material: "+c1);
+			a.add("\u00a77\u00a7oHandle Material: "+c2);
+			a.add("");
+			a.add("\u00a77\u00a7oDurability: "+(getMaxDamage(stack)-stack.getItemDamage())+" / "+getMaxDamage(stack));
+			a.add("\u00a77\u00a7oMining Power: "+getDigSpeed(stack));
+			a.add("\u00a77\u00a7oMining Tier: "+getHarvestLevel(stack));
+		} else {
+			a.add("\u00a77\u00a7o<Press SHIFT>");
+		}
+	}
+	
+	
 }
