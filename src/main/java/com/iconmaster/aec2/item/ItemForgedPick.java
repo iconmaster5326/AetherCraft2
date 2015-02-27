@@ -31,5 +31,10 @@ public class ItemForgedPick extends ItemForgedTool {
 	public int getHarvestLevel(ItemStack stack) {
 		return 2;
 	}
-	
+
+	@Override
+	public int getItemEnchantability(ItemStack stack) {
+		return 10;
+	}
+
 }

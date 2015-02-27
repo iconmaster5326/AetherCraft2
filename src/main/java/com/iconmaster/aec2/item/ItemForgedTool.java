@@ -99,6 +99,9 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	public abstract int getHarvestLevel(ItemStack stack);
 
 	@Override
+	public abstract int getItemEnchantability(ItemStack stack);
+
+	@Override
 	public IIcon getIcon(ItemStack stack, int pass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
 		return textures.getTexture(pass);
 	}
@@ -112,7 +115,7 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	public IIcon getIcon(ItemStack stack, int pass) {
 		return textures.getTexture(pass);
 	}
-	
+
 	@Override
 	public IIcon getIconIndex(ItemStack stack) {
 		return null;
