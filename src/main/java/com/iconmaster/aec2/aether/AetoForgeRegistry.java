@@ -144,7 +144,7 @@ public class AetoForgeRegistry {
 		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(3,10,0,0,0,0)}), "Test Item", "Test item desc goes here") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
-				return null;
+				return new ItemStack(Items.apple);
 			}
 
 			@Override
@@ -156,7 +156,7 @@ public class AetoForgeRegistry {
 		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 2", "line 1", "line 2") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
-				return null;
+				return new ItemStack(Items.arrow);
 			}
 
 			@Override
@@ -168,7 +168,7 @@ public class AetoForgeRegistry {
 		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 3", "line 1", "line 2", "line 3") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
-				return null;
+				return new ItemStack(Items.baked_potato);
 			}
 
 			@Override
