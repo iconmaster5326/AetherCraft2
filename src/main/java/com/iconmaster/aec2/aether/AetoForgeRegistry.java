@@ -1,5 +1,6 @@
 package com.iconmaster.aec2.aether;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,6 +25,8 @@ public class AetoForgeRegistry {
 		public int amt;
 		public int[] statsNeeded = new int[5];
 		
+		protected String cachedDesc;
+		
 		public int getStat(Compound c, int i) {
 			switch (i) {
 				case HARDNESS:
@@ -39,15 +42,53 @@ public class AetoForgeRegistry {
 			}
 			return -1;
 		}
+		
+		public String getStatName(int i) {
+			switch (i) {
+				case HARDNESS:
+					return LanguageRegistry.instance().getStringLocalization("strings.aec2.hardness");
+				case DENSITY:
+					return LanguageRegistry.instance().getStringLocalization("strings.aec2.density");
+				case ENERGY:
+					return LanguageRegistry.instance().getStringLocalization("strings.aec2.energy");
+				case REACTIVITY:
+					return LanguageRegistry.instance().getStringLocalization("strings.aec2.reactivity");
+				case STABILITY:
+					return LanguageRegistry.instance().getStringLocalization("strings.aec2.stability");
+			}
+			return "???";
+		}
 
 		public AetoForgeInput(ItemStack item) {
 			this.item = item;
 			this.compound = false;
+			
+			cachedDesc = item.stackSize+" x "+item.getDisplayName();
 		}
 		
 		public AetoForgeInput(int amt, int... statsNeeded) {
 			this.compound = true;
 			this.statsNeeded = statsNeeded;
+			
+			cachedDesc = amt+" x any compound";
+			
+			boolean addedWith = false;
+			for (int i=0;i<statsNeeded.length;i++) {
+				int stat = statsNeeded[i];
+				
+				if (stat>0) {
+					if (!addedWith) {
+						addedWith = true;
+						cachedDesc += " with";
+					}
+					
+					cachedDesc += " "+getStatName(i).toLowerCase()+">"+stat+",";
+				}
+			}
+			
+			if (addedWith) {
+				cachedDesc = cachedDesc.substring(0, cachedDesc.length()-1);
+			}
 		}
 		
 		public boolean isValid(ItemStack stack) {
@@ -71,6 +112,10 @@ public class AetoForgeRegistry {
 				}
 				return item.getItem()==stack.getItem() && (item.getHasSubtypes() ? (stack.getItemDamage()==item.getItemDamage()) : true);
 			}
+		}
+		
+		public String getDesc() {
+			return cachedDesc;
 		}
 	}
 	
@@ -96,7 +141,7 @@ public class AetoForgeRegistry {
 	}
 	
 	public static void registerForgeRecipes() {
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null}), "Test Item", "Test item desc goes here") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(3,10,0,0,0,0)}), "Test Item", "Test item desc goes here") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;
@@ -108,7 +153,7 @@ public class AetoForgeRegistry {
 			}
 		});
 		
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null,null}), "Test Item 2", "line 1", "line 2") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 2", "line 1", "line 2") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;
@@ -120,7 +165,7 @@ public class AetoForgeRegistry {
 			}
 		});
 		
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {null,null,null}), "Test Item 3", "line 1", "line 2", "line 3") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 3", "line 1", "line 2", "line 3") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
 				return null;

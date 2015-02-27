@@ -21,5 +21,6 @@ public class AetherCraftPacketHandler {
 		
 		register(OpenHatchPacket.class, Side.SERVER);
 		register(RequestHeatSyncPacket.class, Side.SERVER);
+		register(ForgeSelectionPacket.class, Side.SERVER);
 	}
 }

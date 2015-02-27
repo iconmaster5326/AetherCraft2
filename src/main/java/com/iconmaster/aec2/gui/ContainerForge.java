@@ -12,18 +12,15 @@ import net.minecraft.item.ItemStack;
  * @author iconmaster
  */
 public class ContainerForge extends AetherCraftContainer<TEForge> {
-	public int gridSize = 4;
-
 	public ContainerForge(InventoryPlayer player, AetherCraftTE tileEntity) {
 		super(player, (TEForge) tileEntity);
-		
 		te.container = this;
 	}
 
 	@Override
 	public void registerGrids() {
-		grids.add(new SlotGrid(95, 10, gridSize, 1));
-		grids.add(new SlotGrid(9999, 9999, 4-gridSize, 1));
+		grids.add(new SlotGrid(95, 10, te.gridSize, 1));
+		grids.add(new SlotGrid(9999, 9999, 4-te.gridSize, 1));
 		grids.add(new SlotGrid(123, 58, 1, 1));
 		
 		pinv_y = 117;
@@ -47,7 +44,7 @@ public class ContainerForge extends AetherCraftContainer<TEForge> {
 			}
 			// places it into the te is possible since its in the player
 			// inventory
-			else if (!this.mergeItemStack(stackInSlot, 0, gridSize, false)) {
+			else if (!this.mergeItemStack(stackInSlot, 0, te.gridSize, false)) {
 				return null;
 			}
 

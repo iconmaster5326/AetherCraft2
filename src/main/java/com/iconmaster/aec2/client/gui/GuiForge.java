@@ -1,8 +1,11 @@
 package com.iconmaster.aec2.client.gui;
 
 import com.iconmaster.aec2.aether.AetoForgeRegistry;
+import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeInput;
 import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeRecipe;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
+import com.iconmaster.aec2.network.AetherCraftPacketHandler;
+import com.iconmaster.aec2.network.ForgeSelectionPacket;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEForge;
 import java.util.ArrayList;
@@ -17,8 +20,6 @@ import org.lwjgl.opengl.GL11;
  * @author iconmaster
  */
 public class GuiForge extends AetherCraftGui<TEForge> {
-	
-	public int selection = -1;
 
 	public GuiForge(InventoryPlayer player, AetherCraftContainer<TEForge> container, AetherCraftTE te) {
 		super(player, container, (TEForge) te);
@@ -37,8 +38,8 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 		
-		if (selection!=-1) {
-			AetoForgeRecipe r = AetoForgeRegistry.recipes.get(selection);
+		if (te.selection!=-1) {
+			AetoForgeRecipe r = AetoForgeRegistry.recipes.get(te.selection);
 			
 			for (int i=0;i<r.inputs.size(); i++) {
 				drawTexturedModalRect(x + 94 + 18*i, y + 9, 238, 0, 18, 18);
@@ -55,7 +56,7 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			
-			if (i==selection) {
+			if (i==te.selection) {
 				drawTexturedModalRect(x+8+18*row-1, y+21+18*col-1, 238, 18, 18, 18);
 			}
 			
@@ -73,15 +74,23 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		
 		List<AetoForgeRecipe> rs = AetoForgeRegistry.recipes;
 		for (int i=0;i<rs.size(); i++) {
+			AetoForgeRecipe r = rs.get(i);
 			int row = i%COLS;
 			int col = i/COLS;
 			
 			if (mouseX>=x+8+18*row && mouseX<=x+8+18*row+18 && mouseY>=y+21+18*col && mouseY<=y+21+18*col+18) {
 				List<String> list = new ArrayList<String>();
-				list.add(rs.get(i).name);
+				list.add(r.name);
 				
-				for (String s : rs.get(i).desc) {
+				for (String s : r.desc) {
 					list.add("\u00a77\u00a7o"+s);
+				}
+				
+				list.add("");
+				list.add("\u00a77\u00a7oMaterials needed:");
+				
+				for (AetoForgeInput inp : r.inputs) {
+					list.add("\u00a77\u00a7o    "+inp.getDesc());
 				}
 				
 				this.drawHoveringText(list, mouseX-x, mouseY-y, fontRendererObj);
@@ -102,9 +111,10 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 			int col = i/COLS;
 			
 			if (mouseX>=x+8+18*row && mouseX<=x+8+18*row+18 && mouseY>=y+21+18*col && mouseY<=y+21+18*col+18) {
-				selection = i;
+				AetherCraftPacketHandler.HANDLER.sendToServer(new ForgeSelectionPacket(te.xCoord, te.yCoord, te.zCoord, i));
 				
-				te.container.gridSize = rs.get(i).inputs.size();
+				te.selection = i;
+				te.gridSize = rs.get(i).inputs.size();
 				te.container.regenerateSlots();
 			}
 		}
