@@ -43,7 +43,7 @@ public class ForgeOutputSlot extends Slot {
 	@Override
 	public ItemStack decrStackSize(int n) {
 		ItemStack stack = getStack();
-		stack.stackSize = 0;
+		//stack.stackSize = 0;
 		return stack;
 	}
 }

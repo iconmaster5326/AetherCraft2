@@ -30,6 +30,11 @@ public class ContainerForge extends AetherCraftContainer<TEForge> {
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
 		ItemStack stack = null;
 		Slot slotObject = (Slot) inventorySlots.get(slot);
+		
+		//hack for not shift-clicking the output pane ever
+		if (slot==4) {
+			return null;
+		}
 
 		// null checks and checks if the item can be stacked (maxStackSize > 1)
 		if (slotObject != null && slotObject.getHasStack()) {
