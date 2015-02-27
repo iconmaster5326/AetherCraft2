@@ -25,6 +25,8 @@ public class AetherCraftItem extends Item {
 		this.metas = metas;
 		this.textures = textures;
 		this.setHasSubtypes(true);
+		
+		this.setUnlocalizedName(getUnlocalizedName());
 	}
 	
 	public AetherCraftItem(String name, ItemTextures textures) {

@@ -1,7 +1,7 @@
 package com.iconmaster.aec2;
 
-import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.aether.AetoForgeRegistry;
+import com.iconmaster.aec2.aether.Compound;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
@@ -26,6 +26,8 @@ import com.iconmaster.aec2.gui.ContainerSpectrometer;
 import com.iconmaster.aec2.gui.ContainerStill;
 import com.iconmaster.aec2.item.AetherCraftItem;
 import com.iconmaster.aec2.item.ItemCompound;
+import com.iconmaster.aec2.item.ItemForgedPick;
+import com.iconmaster.aec2.item.ItemTextures;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
 import com.iconmaster.aec2.te.TECooler;
 import com.iconmaster.aec2.te.TECrucible;
@@ -132,6 +134,8 @@ public class AetherCraft {
 
 		compound = new ItemCompound();
 		register(compound);
+		
+		register(new ItemForgedPick("forgedPick", new ItemTextures("aec2:forgedToolTest","aec2:forgedRod")));
 
 		//ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new CRatio(new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)),1));
 		TECooler.registerCoolant(new ItemStack(Items.snowball), 4);

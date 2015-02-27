@@ -12,7 +12,7 @@ public class ItemTextures {
 	public IIcon[] icons;
 	public boolean hasMeta = true;
 
-	public ItemTextures(String[] names) {
+	public ItemTextures(String... names) {
 		this.names = names;
 	}
 	
