@@ -6,6 +6,7 @@ import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeRecipe;
 import com.iconmaster.aec2.gui.AetherCraftContainer;
 import com.iconmaster.aec2.network.AetherCraftPacketHandler;
 import com.iconmaster.aec2.network.ForgeSelectionPacket;
+import com.iconmaster.aec2.network.RequestForgeSelectionPacket;
 import com.iconmaster.aec2.te.AetherCraftTE;
 import com.iconmaster.aec2.te.TEForge;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class GuiForge extends AetherCraftGui<TEForge> {
 		gui_texture = new ResourceLocation("aec2", "textures/gui/forgeGui.png");
 		
 		ySize = 198;
+		
+		AetherCraftPacketHandler.HANDLER.sendToServer(new RequestForgeSelectionPacket(te.xCoord, te.yCoord, te.zCoord));
 	}
 	
 	public static final int COLS = 4;
