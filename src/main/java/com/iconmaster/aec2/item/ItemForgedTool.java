@@ -143,7 +143,7 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		Compound c = getCompo(stack, pass+1);
-		return c==null ? 16777215 : c.color;
+		return c==null ? (pass==0 ? 0x00ff00 : 0xff0000) : c.color;
 	}
 	
 	public Compound getCompo(ItemStack stack, int n) {
