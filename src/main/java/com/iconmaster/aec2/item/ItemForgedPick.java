@@ -22,7 +22,7 @@ public class ItemForgedPick extends ItemForgedTool {
 			return 0;
 		}
 		
-		return (int) (((c1.density+0D)+(c2.density+0D)/4)*20);
+		return (int) (((c1.density+0D)+(c2.density+0D)/4)*25);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class ItemForgedPick extends ItemForgedTool {
 			return 0;
 		}
 		
-		return c1.hardness/10D;
+		return c1.hardness/7D;
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class ItemForgedPick extends ItemForgedTool {
 			return 0;
 		}
 		
-		return (((c1.hardness+0F)+(c2.hardness+0F)/2)/4);
+		return (((c1.hardness+0F)+(c2.hardness+0F)/2)/5);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class ItemForgedPick extends ItemForgedTool {
 			return 0;
 		}
 		
-		return c1.hardness/7;
+		return c1.hardness/10;
 	}
 
 	@Override
