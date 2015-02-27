@@ -1,10 +1,10 @@
 package com.iconmaster.aec2.aether;
 
+import com.iconmaster.aec2.AetherCraft;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -161,39 +161,15 @@ public class AetoForgeRegistry {
 	}
 	
 	public static void registerForgeRecipes() {
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(3,10,0,0,0,0)}), "Test Item", "Test item desc goes here") {
+		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(16,10,0,0,0,0), new AetoForgeInput(8,5,0,0,0,0)}), "Aetoforged Pickaxe", "DIGS STONE I GUESS") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
-				return new ItemStack(Items.apple);
+				return new ItemStack(AetherCraft.items.get("forgedPick"));
 			}
 
 			@Override
 			public ItemStack getDisplayStack() {
-				return new ItemStack(Items.apple);
-			}
-		});
-		
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 2", "line 1", "line 2") {
-			@Override
-			public ItemStack getOutput(ItemStack... inputs) {
-				return new ItemStack(Items.arrow);
-			}
-
-			@Override
-			public ItemStack getDisplayStack() {
-				return new ItemStack(Items.arrow);
-			}
-		});
-		
-		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread)),new AetoForgeInput(new ItemStack(Items.bread))}), "Test Item 3", "line 1", "line 2", "line 3") {
-			@Override
-			public ItemStack getOutput(ItemStack... inputs) {
-				return new ItemStack(Items.baked_potato);
-			}
-
-			@Override
-			public ItemStack getDisplayStack() {
-				return new ItemStack(Items.baked_potato);
+				return new ItemStack(AetherCraft.items.get("forgedPick"));
 			}
 		});
 	}

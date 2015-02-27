@@ -40,7 +40,11 @@ public class ForgeSelectionPacket extends AetherCraftTEPacket<TEForge> {
 		
 		if (te!=null) {
 			te.selection = ((ForgeSelectionPacket)message).sel;
-			te.gridSize = AetoForgeRegistry.recipes.get(te.selection).inputs.size();
+			if (te.selection==-1) {
+				te.gridSize = 0;
+			} else {
+				te.gridSize = AetoForgeRegistry.recipes.get(te.selection).inputs.size();
+			}
 			if (te.container!=null) {
 				te.container.regenerateSlots();
 			}
