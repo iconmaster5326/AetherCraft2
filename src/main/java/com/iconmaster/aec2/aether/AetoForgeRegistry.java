@@ -68,6 +68,7 @@ public class AetoForgeRegistry {
 		public AetoForgeInput(int amt, int... statsNeeded) {
 			this.compound = true;
 			this.statsNeeded = statsNeeded;
+			this.amt = amt;
 			
 			cachedDesc = amt+" x any compound";
 			
@@ -91,6 +92,10 @@ public class AetoForgeRegistry {
 		}
 		
 		public boolean isValid(ItemStack stack) {
+			if (stack==null) {
+				return false;
+			}
+			
 			if (compound) {
 				if (stack.stackSize<amt) {
 					return false;

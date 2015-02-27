@@ -1,6 +1,7 @@
 package com.iconmaster.aec2.gui;
 
 import com.iconmaster.aec2.aether.AetoForgeRegistry;
+import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeInput;
 import com.iconmaster.aec2.aether.AetoForgeRegistry.AetoForgeRecipe;
 import com.iconmaster.aec2.te.TEForge;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +24,15 @@ public class ForgeOutputSlot extends Slot {
 		if (te.selection==-1) {
 			return null;
 		}
+		
 		AetoForgeRecipe r = AetoForgeRegistry.recipes.get(te.selection);
+		
+		for (int i=0;i<r.inputs.size();i++) {
+			AetoForgeInput inp = r.inputs.get(i);
+			if (!inp.isValid(te.getStackInSlot(i))) {
+				return null;
+			}
+		}
 		
 		return r.getOutput();
 	}
@@ -42,8 +51,6 @@ public class ForgeOutputSlot extends Slot {
 
 	@Override
 	public ItemStack decrStackSize(int n) {
-		ItemStack stack = getStack();
-		//stack.stackSize = 0;
-		return stack;
+		return getStack();
 	}
 }
