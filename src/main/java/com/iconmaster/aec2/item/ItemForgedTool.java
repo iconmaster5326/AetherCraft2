@@ -132,4 +132,9 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	public boolean requiresMultipleRenderPasses() {
 		return true;
 	}
+
+	@Override
+	public boolean isFull3D() {
+		return true;
+	}
 }
