@@ -121,6 +121,22 @@ public class AetoForgeRegistry {
 		public String getDesc() {
 			return cachedDesc;
 		}
+		
+		public ItemStack onCraft(ItemStack input) {
+			if (compound) {
+				if (input.stackSize==amt) {
+					return null;
+				}
+				input.stackSize-=amt;
+				return input;
+			} else {
+				if (input.stackSize==item.stackSize) {
+					return null;
+				}
+				input.stackSize-=item.stackSize;
+				return input;
+			}
+		}
 	}
 	
 	public static abstract class AetoForgeRecipe {

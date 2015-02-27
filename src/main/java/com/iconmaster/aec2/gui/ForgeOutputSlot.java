@@ -39,7 +39,17 @@ public class ForgeOutputSlot extends Slot {
 
 	@Override
 	public void onPickupFromSlot(EntityPlayer p_82870_1_, ItemStack p_82870_2_) {
+		TEForge te = (TEForge)inventory;
+		if (te.selection==-1) {
+			return;
+		}
 		
+		AetoForgeRecipe r = AetoForgeRegistry.recipes.get(te.selection);
+		
+		for (int i=0;i<r.inputs.size();i++) {
+			AetoForgeInput inp = r.inputs.get(i);
+			te.inventory[i] = inp.onCraft(te.inventory[i]);
+		}
 		
 		super.onPickupFromSlot(p_82870_1_, p_82870_2_);
 	}
