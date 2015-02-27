@@ -3,6 +3,7 @@ package com.iconmaster.aec2.item;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import com.iconmaster.aec2.aether.Compound;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Set;
@@ -13,6 +14,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -121,12 +123,6 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 		return null;
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int pass) {
-		return pass == 0 ? 0x00ff00 : 0xff0000;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean requiresMultipleRenderPasses() {
@@ -136,5 +132,21 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 	@Override
 	public boolean isFull3D() {
 		return true;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack stack, int pass) {
+		Compound c = getCompo(stack, pass+1);
+		return c==null ? 16777215 : c.color;
+	}
+	
+	public Compound getCompo(ItemStack stack, int n) {
+		if (stack.stackTagCompound==null) {
+			return null;
+		}
+		
+		NBTTagCompound cpdt = stack.stackTagCompound.getCompoundTag("cpd"+n);
+		return Compound.readFromNBT(cpdt);
 	}
 }

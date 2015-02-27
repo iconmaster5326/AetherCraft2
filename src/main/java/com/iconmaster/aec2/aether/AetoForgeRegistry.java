@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  *
@@ -164,7 +165,18 @@ public class AetoForgeRegistry {
 		addRecipe(new AetoForgeRecipe(Arrays.asList(new AetoForgeInput[] {new AetoForgeInput(16,10,0,0,0,0), new AetoForgeInput(8,5,0,0,0,0)}), "Aetoforged Pickaxe", "DIGS STONE I GUESS") {
 			@Override
 			public ItemStack getOutput(ItemStack... inputs) {
-				return new ItemStack(AetherCraft.items.get("forgedPick"));
+				ItemStack stack = new ItemStack(AetherCraft.items.get("forgedPick"));
+				stack.stackTagCompound = new NBTTagCompound();
+				
+				NBTTagCompound cpd1 = new NBTTagCompound();
+				Compound.readFromNBT(inputs[0].stackTagCompound).writeToNBT(cpd1);
+				stack.stackTagCompound.setTag("cpd1", cpd1);
+				
+				NBTTagCompound cpd2 = new NBTTagCompound();
+				Compound.readFromNBT(inputs[1].stackTagCompound).writeToNBT(cpd2);
+				stack.stackTagCompound.setTag("cpd2", cpd2);
+				
+				return stack;
 			}
 
 			@Override

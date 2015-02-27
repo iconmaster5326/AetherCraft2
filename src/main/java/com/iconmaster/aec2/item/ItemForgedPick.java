@@ -36,5 +36,4 @@ public class ItemForgedPick extends ItemForgedTool {
 	public int getItemEnchantability(ItemStack stack) {
 		return 10;
 	}
-
 }
