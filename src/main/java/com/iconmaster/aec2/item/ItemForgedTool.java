@@ -31,7 +31,6 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 
 	public ItemForgedTool(String name, ItemTextures textures, String toolClass, Set worksOn) {
 		super(name, textures);
-		textures.hasMeta = false;
 
 		this.maxStackSize = 1;
 		this.toolClass = toolClass;
@@ -50,12 +49,6 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 			stack.damageItem(1, player);
 		}
 
-		return true;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public boolean isFull3D() {
 		return true;
 	}
 
@@ -98,19 +91,42 @@ public abstract class ItemForgedTool extends AetherCraftItem {
 
 	@Override
 	public abstract int getMaxDamage(ItemStack stack);
+
 	public abstract double getAttackPower(ItemStack stack);
+
 	public abstract float getDigSpeed(ItemStack stack);
+
 	public abstract int getHarvestLevel(ItemStack stack);
+
+	@Override
+	public IIcon getIcon(ItemStack stack, int pass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+		return textures.getTexture(pass);
+	}
+
+	@Override
+	public IIcon getIconFromDamageForRenderPass(int stack, int pass) {
+		return textures.getTexture(pass);
+	}
+
+	@Override
+	public IIcon getIcon(ItemStack stack, int pass) {
+		return textures.getTexture(pass);
+	}
 	
 	@Override
-	public IIcon getIcon(ItemStack stack, int pass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-    {
-        return textures.getTexture(pass);
-    }
-	
+	public IIcon getIconIndex(ItemStack stack) {
+		return null;
+	}
+
 	@Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack stack, int pass) {
-		return 0x00ff00;
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack stack, int pass) {
+		return pass == 0 ? 0x00ff00 : 0xff0000;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean requiresMultipleRenderPasses() {
+		return true;
 	}
 }

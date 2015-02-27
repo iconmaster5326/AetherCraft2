@@ -135,7 +135,7 @@ public class AetherCraft {
 		compound = new ItemCompound();
 		register(compound);
 		
-		register(new ItemForgedPick("forgedPick", new ItemTextures("aec2:forgedToolTest","aec2:forgedRod")));
+		register(new ItemForgedPick("forgedPick", new ItemTextures("aec2:forgedPick","aec2:forgedRod")));
 
 		//ItemConversionRegistry.addConversion(new ItemStack(Blocks.dirt), new CRatio(new Compound(new Ratio(Aether.SOLGEM, 1),new Ratio(Aether.HAETRONOUS, 1)),1));
 		TECooler.registerCoolant(new ItemStack(Items.snowball), 4);
@@ -148,6 +148,8 @@ public class AetherCraft {
 		
 		//add Forge recipes
 		AetoForgeRegistry.registerForgeRecipes();
+		
+		proxy.registerRenders();
 
 //		Compound c3 = new Compound(new Compound.Ratio(Aether.SOLGEM, 1));
 //		Compound c2 = new Compound(new Compound.Ratio(Aether.HAETRONOUS, 1));
