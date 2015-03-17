@@ -277,8 +277,10 @@ public class Compound {
 		StringBuilder sb = new StringBuilder();
 		for (int i=0;i<aethers.length;i++) {
 			int amt = aethers[i];
-			String name = Aether.values()[i].name.substring(0, 2).toUpperCase();
-			sb.append(amt+name);
+			if (amt!=0) {
+				String name = Aether.values()[i].name.substring(0, 2).toUpperCase();
+				sb.append(amt+name);
+			}
 		}
 		return sb.toString();
 	}
@@ -288,9 +290,9 @@ public class Compound {
 		String[] amts = s.split("\\D+");
 		int[] cpd = new int[Aether.values().length];
 		
-		for (int i=0;i<aes.length;i++) {
+		for (int i=1;i<aes.length;i++) {
 			String ae = aes[i];
-			String amt = amts[i];
+			String amt = amts[i-1];
 			
 			for (int j = 0;j<Aether.values().length;j++) {
 				Aether a = Aether.values()[j];

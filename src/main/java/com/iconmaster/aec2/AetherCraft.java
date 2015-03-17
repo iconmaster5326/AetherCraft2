@@ -1,10 +1,8 @@
 package com.iconmaster.aec2;
 
 import com.iconmaster.aec2.aether.AetoForgeRegistry;
-import com.iconmaster.aec2.aether.Compound;
+import com.iconmaster.aec2.aether.CompoundSystem;
 import com.iconmaster.aec2.aether.ItemConversionRegistry;
-import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
-import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.aec2.block.AetherCraftBlock;
 import com.iconmaster.aec2.block.AetherCraftTEBlock;
 import com.iconmaster.aec2.block.BlockCrucible;
@@ -41,9 +39,9 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.creativetab.CreativeTabs;
@@ -105,6 +103,11 @@ public class AetherCraft {
 		tes.put(data.name, data);
 		data.register();
 	}
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		ItemConversionRegistry.sys = new CompoundSystem();
+	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -150,86 +153,10 @@ public class AetherCraft {
 		AetoForgeRegistry.registerForgeRecipes();
 		
 		proxy.registerRenders();
-
-//		Compound c3 = new Compound(new Compound.Ratio(Aether.SOLGEM, 1));
-//		Compound c2 = new Compound(new Compound.Ratio(Aether.HAETRONOUS, 1));
-//		Compound c1 = new Compound(new Compound.Ratio(Aether.GEOTOGOUS, 1));
-//		System.out.println(c1.hashCode());
-//		System.out.println(c2.hashCode());
-//		System.out.println(c3.hashCode());
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 1));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 2));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 2));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 1));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c3, 2));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
-//		ItemConversionRegistry.addMat(null, new CRatio(c1, 3), new CRatio(c2, 4));
-//		System.out.println(ItemConversionRegistry.aetherToItem);
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		//register ALL the random compounds; ALL OF THEM
-		//TODO: get rid of this, for God's sake
-		Random r = new Random(5326);
-		for (Object s : Item.itemRegistry.getKeys()) {
-			Item item = (Item) Item.itemRegistry.getObject(s);
-			ArrayList<ItemStack> a = new ArrayList<ItemStack>();
-			item.getSubItems(item, null, a);
-			for (int i = 0; i < a.size(); i++) {
-				int cpds = 1 + r.nextInt(3);
-				CRatio[] ratios = new CRatio[cpds];
-				for (int ii = 0; ii < cpds; ii++) {
-					ratios[ii] = new CRatio(Compound.randomCompound(2 + r.nextInt(4), r), 1 + r.nextInt(16));
-				}
-				ItemConversionRegistry.addConversion(new ItemStack(item, 1, i), new RatioList(ratios));
-			}
-		}
-
-//		ItemConversionRegistry.addConversion(
-//			new ItemStack(Items.apple), new ItemConversionRegistry.RatioList(
-//				new CRatio(
-//					new Compound(
-//						new Ratio(Aether.SOLGEM,1),
-//						new Ratio(Aether.DRAYROSA,1)
-//					),
-//				1),
-//				new CRatio(
-//					new Compound(
-//						new Ratio(Aether.ALUOSA,1),
-//						new Ratio(Aether.DRAYROSA,1)
-//					),
-//				1)
-//			)
-//		);
-//		
-//		ItemConversionRegistry.addConversion(
-//			new ItemStack(Items.arrow), new ItemConversionRegistry.RatioList(
-//				new CRatio(
-//					new Compound(
-//						new Ratio(Aether.SOLGEM,1),
-//						new Ratio(Aether.DRAYROSA,1)
-//					),
-//				1),
-//				new CRatio(
-//					new Compound(
-//						new Ratio(Aether.HAETRONOUS,1),
-//						new Ratio(Aether.DRAYROSA,1)
-//					),
-//				1)
-//			)
-//		);
+	public void serverStart(FMLServerStartingEvent event) {
+		ItemConversionRegistry.addConversions();
 	}
 }

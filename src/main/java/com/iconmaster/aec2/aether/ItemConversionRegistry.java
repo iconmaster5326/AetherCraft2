@@ -1,9 +1,11 @@
 package com.iconmaster.aec2.aether;
 
+import com.iconmaster.eqlib.recipe.ItemData;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +15,8 @@ import net.minecraft.item.ItemStack;
  * @author iconmaster
  */
 public class ItemConversionRegistry {
+	
+	public static CompoundSystem sys;
 
 	public static class CRatio implements Comparable<CRatio> {
 
@@ -354,5 +358,14 @@ public class ItemConversionRegistry {
 		
 		//System.out.println("[AEC2] RET "+a);
 		return a;
+	}
+	
+	public static void addConversions() {
+		aetherToItem = new HashMap<Compound, LookupTree>();
+		itemToAether = new HashMap<Integer, ArrayList<RatioList>>();
+		
+		for (Map.Entry<ItemData, RatioList> e : sys.config.values.entrySet()) {
+			addConversion(new ItemStack((Item) Item.itemRegistry.getObject(e.getKey().name), 1, e.getKey().meta), e.getValue());
+		}
 	}
 }
