@@ -99,7 +99,7 @@ public class Compound {
 		
 		if (crystal) {
 			Aether aether = Aether.values()[single];
-			name = "Cystallized "+aether;
+			name = "Crystallized "+aether;
 		} else {
 			name = randomName(r);
 		}
@@ -270,6 +270,36 @@ public class Compound {
 		}
 		
 		Compound c = new Compound(a);
-		return c.name.startsWith("Cystal") ? randomCompound(size, r) : c;
+		return c.name.startsWith("Crystal") ? randomCompound(size, r) : c;
+	}
+	
+	public String toConfigString() {
+		StringBuilder sb = new StringBuilder();
+		for (int i=0;i<aethers.length;i++) {
+			int amt = aethers[i];
+			String name = Aether.values()[i].name.substring(0, 2).toUpperCase();
+			sb.append(amt+name);
+		}
+		return sb.toString();
+	}
+	
+	public static Compound fromConfigString(String s) {
+		String[] aes = s.split("\\d+");
+		String[] amts = s.split("\\D+");
+		int[] cpd = new int[Aether.values().length];
+		
+		for (int i=0;i<aes.length;i++) {
+			String ae = aes[i];
+			String amt = amts[i];
+			
+			for (int j = 0;j<Aether.values().length;j++) {
+				Aether a = Aether.values()[j];
+				if (a.name.toUpperCase().startsWith(ae.toUpperCase())) {
+					cpd[j] = Integer.parseInt(amt);
+				}
+			}
+		}
+		
+		return new Compound(cpd);
 	}
 }
