@@ -6,13 +6,13 @@ package com.iconmaster.aec2.aether;
  */
 public enum Aether {
 	MYARTIS(10, 3, 6, 1, 0x880000),
-	SOLGEM(3, 10, 5, 2, 0x444400),
-	HAETRONOUS(3, 4, 10, 3, 0x000088),
-	ALUOSA(1, 1, 8, 10, 0x222222),
 	TEGORIS(10, 2, 5, 3, 0x224400),
-	GEOTOGOUS(1, 8, 10, 2, 0x004444),
-	DRAYROSA(3, 6, 1, 10, 0x440044),
+	SOLGEM(3, 10, 5, 2, 0x444400),
 	TERREM(1, 10, 2, 7, 0x008800),
+	HAETRONOUS(3, 4, 10, 3, 0x000088),
+	GEOTOGOUS(1, 8, 10, 2, 0x004444),
+	ALUOSA(1, 1, 8, 10, 0x222222),
+	DRAYROSA(3, 6, 1, 10, 0x440044),
 	
 	PURIS(30, 1, 1, 1, 0xff0000),
 	PUREM(1, 30, 1, 1, 0x00ff00),
