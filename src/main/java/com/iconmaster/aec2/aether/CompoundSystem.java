@@ -1,6 +1,5 @@
 package com.iconmaster.aec2.aether;
 
-import com.iconmaster.aec2.aether.Compound.Ratio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.CRatio;
 import com.iconmaster.aec2.aether.ItemConversionRegistry.RatioList;
 import com.iconmaster.eqlib.recipe.EquivSystem;
@@ -55,7 +54,12 @@ public class CompoundSystem extends EquivSystem<RatioList> {
 	@Override
 	public Map<ItemData, RatioList> getBaseValues() {
 		Map<ItemData, RatioList> map = new HashMap<ItemData, RatioList>();
-		map.put(new ItemData("minecraft:planks",0), new RatioList(new CRatio(new Compound(new Ratio(Aether.SOLGEM,1), new Ratio(Aether.HAETRONOUS,1)), 8)));
+		map.put(new ItemData("minecraft:log",0), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:log",1), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:log",2), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:log",3), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:log2",0), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:log2",1), fromString("2HA1SO:8"));
 		return map;
 	}
 
