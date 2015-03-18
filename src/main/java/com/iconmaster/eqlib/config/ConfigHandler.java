@@ -55,7 +55,7 @@ public abstract class ConfigHandler<T> {
 				try {
 					Scanner in = new Scanner(file);
 					values = stringToValues(EquivLib.readAll(in));
-					System.out.println(values);
+					//System.out.println(values);
 				} catch (IOException ex) {
 					ex.printStackTrace();
 				}
