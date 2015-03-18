@@ -100,11 +100,13 @@ public class Compound {
 		if (crystal) {
 			Aether aether = Aether.values()[single];
 			name = "Crystallized "+aether;
+			color = aether.color;
 		} else {
 			name = randomName(r);
+			color = r.nextInt(0x1000000);
 		}
 		
-		color = r.nextInt(0x1000000);
+		
 	}
 	
 	public Ratio[] ratios() {
