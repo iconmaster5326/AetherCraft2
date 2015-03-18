@@ -1,27 +1,25 @@
 package com.iconmaster.aec2.aether;
 
-import com.iconmaster.aec2.AetherCraft;
-
 /**
  *
  * @author iconmaster
  */
 public enum Aether {
-	MYARTIS(0x880000),
-	SOLGEM(0x444400),
-	HAETRONOUS(0x000088),
-	ALUOSA(0x222222),
-	TEGORIS(0x224400),
-	GEOTOGOUS(0x004444),
-	DRAYROSA(0x440044),
-	TERREM(0x008800),
+	MYARTIS(10, 3, 6, 1, 0x880000),
+	SOLGEM(3, 10, 5, 2, 0x444400),
+	HAETRONOUS(3, 4, 10, 3, 0x000088),
+	ALUOSA(1, 1, 8, 10, 0x222222),
+	TEGORIS(10, 2, 5, 3, 0x224400),
+	GEOTOGOUS(1, 8, 10, 2, 0x004444),
+	DRAYROSA(3, 6, 1, 10, 0x440044),
+	TERREM(1, 10, 2, 7, 0x008800),
 	
-	PURIS(0xff0000),
-	PUREM(0x00ff00),
-	PUROUS(0x0000ff),
-	PUROSA(0xffff00),
+	PURIS(30, 1, 1, 1, 0xff0000),
+	PUREM(1, 30, 1, 1, 0x00ff00),
+	PUROUS(1, 1, 30, 1, 0x0000ff),
+	PUROSA(1, 1, 1, 30, 0xffff00),
 	
-	AETERNALIS(0xffffff);
+	AETERNALIS(20, 20, 20, 20, 0xffffff);
 	
 	public String name;
 	public int color;
@@ -31,14 +29,14 @@ public enum Aether {
 	public int flair;
 	public int mass;
 	
-	Aether(int color) {
+	Aether(int g, int v, int f, int m, int color) {
 		name = this.name().substring(0,1)+this.name().substring(1).toLowerCase();
 		this.color = color;
 		
-		gleam = 1+AetherCraft.aetherRandom.nextInt(10);
-		vigor = 1+AetherCraft.aetherRandom.nextInt(10);
-		flair = 1+AetherCraft.aetherRandom.nextInt(10);
-		mass = 1+AetherCraft.aetherRandom.nextInt(10);
+		gleam = g;
+		vigor = v;
+		flair = f;
+		mass = m;
 	}
 	
 	@Override
