@@ -14,12 +14,12 @@ public enum Aether {
 	ALUOSA(1, 1, 8, 10, 0x222222),
 	DRAYROSA(3, 6, 1, 10, 0x440044),
 	
-	PURIS(30, 1, 1, 1, 0xff0000),
-	PUREM(1, 30, 1, 1, 0x00ff00),
-	PUROUS(1, 1, 30, 1, 0x0000ff),
-	PUROSA(1, 1, 1, 30, 0xffff00),
+	PURIS(30, 1, 1, 1, 0xff0000), //of dust
+	PUREM(1, 30, 1, 1, 0x00ff00), //of life
+	PUROUS(1, 1, 30, 1, 0x0000ff), //of wood
+	PUROSA(1, 1, 1, 30, 0xffff00), //of stone
 	
-	AETERNALIS(20, 20, 20, 20, 0xffffff);
+	AETERNALIS(20, 20, 20, 20, 0xffffff); //ultimate power
 	
 	public String name;
 	public int color;
