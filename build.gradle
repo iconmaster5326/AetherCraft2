@@ -29,16 +29,13 @@ configFile.withReader {
 
 ext.env = System.getenv()
 
-// Drone.io Support
-if(env.DRONE_BUILD_NUMBER)
-ext.buildNumber = env.DRONE_BUILD_NUMBER
-
-// Jenkins Support
-else if (env.BUILD_NUMBER)
-ext.buildNumber = env.BUILD_NUMBER
-
-else
-ext.buildNumber = config.build_number
+if(env.DRONE_BUILD_NUMBER) { // Drone.io Support
+	ext.buildNumber = env.DRONE_BUILD_NUMBER
+} else if (env.BUILD_NUMBER) { // Jenkins Support
+	ext.buildNumber = env.BUILD_NUMBER
+} else {
+	ext.buildNumber = config.build_number
+}
 
 version = "${config.minecraft_version}-${config.mod_version}.${buildNumber ?: 0}"
 
@@ -50,22 +47,6 @@ minecraft {
 
     replaceIn "AetherCraft.java"
     replace "@VERSION@", "${config.mod_version}.${buildNumber ?: 0}"
-}
-
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
 processResources
@@ -86,4 +67,11 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+repositories {
+	maven {
+		name = "iconmaster"
+		url = "http://dl.bintray.com/iconmaster5326/maven" 
+	}
 }

@@ -60,6 +60,7 @@ public class CompoundSystem extends EquivSystem<RatioList> {
 		map.put(new ItemData("minecraft:log",3), fromString("2HA1SO:8"));
 		map.put(new ItemData("minecraft:log2",0), fromString("2HA1SO:8"));
 		map.put(new ItemData("minecraft:log2",1), fromString("2HA1SO:8"));
+		map.put(new ItemData("minecraft:cobblestone"), fromString("1DR1MY:2"));
 		return map;
 	}
 
